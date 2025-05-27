@@ -1,7 +1,6 @@
 # build output
 dist/
 .output/
-# docs/ - allowing this directory for GitHub Pages
 
 # dependencies
 node_modules/

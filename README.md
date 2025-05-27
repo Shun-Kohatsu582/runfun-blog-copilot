@@ -50,7 +50,7 @@ npm run dev
 │       ├── blog/       # ブログ記事（Markdownファイル）
 │       ├── about.astro # アバウトページ
 │       └── index.astro # ホームページ
-├── docs/               # ビルド後の静的ファイル（GitHub Pages用）
+├── dist/               # ビルド後の静的ファイル
 └── astro.config.mjs    # Astroの設定
 ```
 
@@ -81,7 +81,7 @@ heroImage: '/images/your-image.jpg' # オプション
 npm run build
 ```
 
-ビルドされたサイトは `docs/` ディレクトリにあり、GitHub Pagesでデプロイする準備が整っています。
+ビルドされたサイトは `dist/` ディレクトリにあります。
 
 ## GitHub Pagesでのデプロイ
 
@@ -89,7 +89,7 @@ npm run build
 
 1. リポジトリのSettings > Pagesに移動します
 2. Source設定で「Deploy from a branch」を選択します
-3. Branchドロップダウンから「main」ブランチと「/docs」フォルダを選択します
+3. Branchドロップダウンから「main」ブランチと「/dist」フォルダを選択します
 4. 「Save」ボタンをクリックします
 
 デプロイが完了すると、サイトは以下のURLで公開されます：
