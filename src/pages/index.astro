@@ -31,6 +31,8 @@ const sortedPosts = posts.sort(
             pubDate={new Date(post.frontmatter.pubDate)}
             url={post.url}
             heroImage={post.frontmatter.heroImage}
+            categories={post.frontmatter.categories}
+          />
           />
         ))}
       </div>

@@ -1,0 +1,93 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+// Get all blog posts
+const posts = await Astro.glob('../blog/*.md');
+
+// Extract all categories and count posts in each
+const categories = posts.reduce((acc, post) => {
+  const postCategories = post.frontmatter.categories || [];
+  
+  postCategories.forEach(category => {
+    if (!acc[category]) {
+      acc[category] = {
+        name: category,
+        count: 0,
+        slug: category.toLowerCase().replace(/\s+/g, '-')
+      };
+    }
+    acc[category].count += 1;
+  });
+  
+  return acc;
+}, {});
+
+// Convert to array and sort alphabetically
+const sortedCategories = Object.values(categories).sort((a, b) => 
+  a.name.localeCompare(b.name)
+);
+---
+
+<MainLayout title="Categories - RunFun Blog" description="Browse all blog post categories">
+  <h1>Categories</h1>
+  
+  <p class="intro">Browse all blog posts by category.</p>
+  
+  {sortedCategories.length === 0 ? (
+    <p>No categories available yet. Check back soon!</p>
+  ) : (
+    <div class="categories-grid">
+      {sortedCategories.map((category) => (
+        <a href={`/category/${category.slug}`} class="category-card">
+          <h2>{category.name}</h2>
+          <p>{category.count} {category.count === 1 ? 'post' : 'posts'}</p>
+        </a>
+      ))}
+    </div>
+  )}
+</MainLayout>
+
+<style>
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+  }
+  
+  .intro {
+    margin-bottom: 2rem;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .category-card {
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #eee;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .category-card h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary);
+  }
+  
+  .category-card p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+</style>

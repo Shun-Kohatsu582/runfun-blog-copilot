@@ -4,6 +4,7 @@ title: '5 Essential Stretches for Runners'
 description: 'Learn the five most important stretches to keep your running body flexible, prevent injuries, and improve performance.'
 pubDate: '2023-07-21'
 heroImage: '/images/runner-stretching.jpg'
+categories: ['Recovery', 'Injury Prevention', 'Running Tips']
 ---
 
 # 5 Essential Stretches for Runners
