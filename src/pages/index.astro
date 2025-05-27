@@ -46,6 +46,15 @@ import i18next from "i18next";
       </div>
     </div>
   </section>
+
+  <!-- Blog Link Section -->
+  <section class="blog-link-section">
+    <div class="container">
+      <h2>BLOG</h2>
+      <p>技術ブログやお役立ち情報を更新しています</p>
+      <a href="/blog" class="blog-button">ブログを見る</a>
+    </div>
+  </section>
 </MainLayout>
 
 <style>
@@ -120,5 +129,35 @@ import i18next from "i18next";
   
   .engineer-location {
     margin-bottom: 0.5rem;
+  }
+  
+  .blog-link-section {
+    padding: 3rem 0;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .blog-link-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-link-section p {
+    margin-bottom: 2rem;
+  }
+  
+  .blog-button {
+    display: inline-block;
+    background-color: var(--service-blue);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .blog-button:hover {
+    background-color: #3a93e6;
   }
 </style>
