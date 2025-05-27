@@ -1,0 +1,98 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import BlogPostPreview from "../../components/BlogPostPreview.astro";
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../blog/*.md');
+  
+  // Extract all categories from all posts
+  const allCategories = new Set();
+  posts.forEach(post => {
+    const categories = post.frontmatter.categories || [];
+    categories.forEach(category => {
+      allCategories.add(category);
+    });
+  });
+  
+  // Create a path for each category
+  return Array.from(allCategories).map(category => {
+    const filteredPosts = posts.filter(post => 
+      post.frontmatter.categories && 
+      post.frontmatter.categories.includes(category)
+    );
+    
+    return {
+      params: { category: category.toLowerCase().replace(/\s+/g, '-') },
+      props: { 
+        category,
+        posts: filteredPosts
+      }
+    };
+  });
+}
+
+const { category, posts } = Astro.props;
+
+// Sort posts by date
+const sortedPosts = posts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+);
+
+const title = `${category} - RunFun Blog`;
+const description = `Blog posts about ${category} - RunFun Blog`;
+---
+
+<MainLayout title={title} description={description}>
+  <div class="category-header">
+    <h1>{category}</h1>
+    <a href="/categories" class="all-categories">View all categories</a>
+  </div>
+  
+  {sortedPosts.length === 0 ? (
+    <p>No posts found in this category. Check back soon!</p>
+  ) : (
+    <div class="posts-grid">
+      {sortedPosts.map((post) => (
+        <BlogPostPreview
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={new Date(post.frontmatter.pubDate)}
+          url={post.url}
+          heroImage={post.frontmatter.heroImage}
+          categories={post.frontmatter.categories}
+        />
+      ))}
+    </div>
+  )}
+</MainLayout>
+
+<style>
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: var(--color-secondary);
+    margin: 0;
+  }
+  
+  .all-categories {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .all-categories:hover {
+    text-decoration: underline;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+</style>

@@ -5,6 +5,7 @@
 ## 特徴
 
 - Markdownコンテンツ管理
+- カテゴリー分類機能
 - レスポンシブデザイン
 - 高速な静的サイト生成
 - シンプルで清潔なユーザーインターフェース
@@ -66,6 +67,7 @@ title: '記事のタイトル'
 description: '記事の簡単な説明'
 pubDate: 'YYYY-MM-DD'
 heroImage: '/images/your-image.jpg' # オプション
+categories: ['カテゴリー1', 'カテゴリー2'] # オプション
 ---
 
 ここに本文を入力...

@@ -4,6 +4,7 @@ title: 'Finding Your Ideal Running Pace'
 description: 'Learn how to determine your optimal running pace for different types of training and racing to maximize performance and enjoyment.'
 pubDate: '2023-08-10'
 heroImage: '/images/running-pace.jpg'
+categories: ['Training', 'Performance', 'Running Tips']
 ---
 
 # Finding Your Ideal Running Pace
