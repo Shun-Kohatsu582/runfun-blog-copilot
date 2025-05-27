@@ -1,87 +1,87 @@
 # RunFun Blog
 
-A blog about running and fun activities built with [Astro](https://astro.build).
+[Astro](https://astro.build)で構築されたランニングと楽しいアクティビティに関するブログ。
 
-## Features
+## 特徴
 
-- Markdown content management
-- Responsive design
-- Fast static site generation
-- Simple and clean user interface
+- Markdownコンテンツ管理
+- レスポンシブデザイン
+- 高速な静的サイト生成
+- シンプルで清潔なユーザーインターフェース
 
-## Getting Started
+## はじめに
 
-### Prerequisites
+### 前提条件
 
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- npm or yarn
+- [Node.js](https://nodejs.org/)（v16以上）
+- npmまたはyarn
 
-### Installation
+### インストール
 
-1. Clone the repository:
+1. リポジトリをクローンします：
 ```bash
 git clone https://github.com/Shun-Kohatsu582/runfun-blog-copilot.git
 cd runfun-blog-copilot
 ```
 
-2. Install dependencies:
+2. 依存関係をインストールします：
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. 開発サーバーを起動します：
 ```bash
 npm run dev
 ```
 
-4. Open your browser and visit `http://localhost:4321`
+4. ブラウザを開いて `http://localhost:4321` にアクセスします
 
-## Project Structure
+## プロジェクト構造
 
 ```
 /
-├── public/             # Static assets
-│   ├── images/         # Blog post images
-│   └── favicon.svg     # Site favicon
+├── public/             # 静的アセット
+│   ├── images/         # ブログ記事の画像
+│   └── favicon.svg     # サイトのファビコン
 ├── src/
-│   ├── components/     # Reusable UI components
-│   ├── layouts/        # Page layouts
-│   └── pages/          # Site pages and blog posts
-│       ├── blog/       # Blog posts (Markdown files)
-│       ├── about.astro # About page
-│       └── index.astro # Home page
-└── astro.config.mjs    # Astro configuration
+│   ├── components/     # 再利用可能なUIコンポーネント
+│   ├── layouts/        # ページレイアウト
+│   └── pages/          # サイトページとブログ記事
+│       ├── blog/       # ブログ記事（Markdownファイル）
+│       ├── about.astro # アバウトページ
+│       └── index.astro # ホームページ
+└── astro.config.mjs    # Astroの設定
 ```
 
-## Adding Blog Posts
+## ブログ記事の追加
 
-1. Create a new Markdown file in the `src/pages/blog/` directory
-2. Add the following frontmatter at the top of the file:
+1. `src/pages/blog/` ディレクトリに新しいMarkdownファイルを作成します
+2. ファイルの先頭に以下のフロントマターを追加します：
 
 ```md
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: 'Your Post Title'
-description: 'A brief description of your post'
+title: '記事のタイトル'
+description: '記事の簡単な説明'
 pubDate: 'YYYY-MM-DD'
-heroImage: '/images/your-image.jpg' # Optional
+heroImage: '/images/your-image.jpg' # オプション
 ---
 
-Your content here...
+ここに本文を入力...
 ```
 
-3. Add any images referenced in your posts to the `public/images/` directory
+3. 記事で参照する画像を `public/images/` ディレクトリに追加します
 
-## Building for Production
+## 本番用ビルド
 
-To build the site for production:
+本番用にサイトをビルドするには：
 
 ```bash
 npm run build
 ```
 
-The built site will be in the `dist/` directory, ready to be deployed to your preferred hosting provider.
+ビルドされたサイトは `dist/` ディレクトリにあり、お好みのホスティングプロバイダーにデプロイする準備が整っています。
 
-## License
+## ライセンス
 
-This project is licensed under the MIT License.
+このプロジェクトはMITライセンスの下で公開されています。
