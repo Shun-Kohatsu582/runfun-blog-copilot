@@ -5,20 +5,26 @@ import type { CollectionEntry } from "astro:content";
 interface Props {
   title: string;
   description?: string;
-  pubDate: Date;
-  updatedDate?: Date;
+  pubDate: Date | string;
+  updatedDate?: Date | string;
   heroImage?: string;
 }
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
-const formattedPubDate = pubDate.toLocaleDateString('en-us', {
+// Convert string dates to Date objects if necessary
+const pubDateObj = typeof pubDate === 'string' ? new Date(pubDate) : pubDate;
+const updatedDateObj = updatedDate 
+  ? (typeof updatedDate === 'string' ? new Date(updatedDate) : updatedDate)
+  : undefined;
+
+const formattedPubDate = pubDateObj.toLocaleDateString('en-us', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
 
-const formattedUpdatedDate = updatedDate?.toLocaleDateString('en-us', {
+const formattedUpdatedDate = updatedDateObj?.toLocaleDateString('en-us', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -32,10 +38,10 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en-us', {
     <h1 class="title">{title}</h1>
     
     <div class="post-meta">
-      <time datetime={pubDate.toISOString()}>Published on {formattedPubDate}</time>
-      {updatedDate && (
+      <time datetime={pubDateObj.toISOString()}>Published on {formattedPubDate}</time>
+      {updatedDateObj && (
         <div class="updated-date">
-          <time datetime={updatedDate.toISOString()}>
+          <time datetime={updatedDateObj.toISOString()}>
             Updated on {formattedUpdatedDate}
           </time>
         </div>
