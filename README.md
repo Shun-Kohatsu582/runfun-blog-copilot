@@ -108,6 +108,65 @@ https://shun-kohatsu582.github.io/runfun-blog-copilot/
 
 詳細は[GitHub Pagesのドキュメント](https://docs.github.com/ja/pages/configuring-a-custom-domain-for-your-github-pages-site)を参照してください。
 
+## Cloudflare Pagesでのデプロイ
+
+このリポジトリはCloudflare Pagesでも自動デプロイできるように設定されています。以下の手順でセットアップしてください：
+
+### Cloudflare Pagesプロジェクトの作成
+
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/)にログインします
+2. 左側のサイドバーから「Pages」を選択します
+3. 「Create a project」ボタンをクリックします
+4. 「Connect to Git」を選択します
+5. GitHubのアカウントを接続し、このリポジトリを選択します
+6. 以下のビルド設定を構成します：
+   - **Project name**: 任意のプロジェクト名（例：runfun-blog）
+   - **Production branch**: `main`（または希望するブランチ）
+   - **Framework preset**: Astro
+   - **Build command**: `npm run build`
+   - **Build output directory**: `dist`
+   - **Root directory**: `/`（デフォルト）
+7. 「Save and Deploy」ボタンをクリックします
+
+### 環境変数の設定（オプション）
+
+プロジェクトのビルド設定に特定の環境変数を追加することができます：
+
+1. Cloudflareダッシュボードで作成したPagesプロジェクトを選択します
+2. 「Settings」タブ、次に「Environment variables」を選択します
+3. 必要に応じて以下の環境変数を追加します：
+   - `NODE_VERSION`: `16`（または適切なNode.jsバージョン）
+   - `NPM_VERSION`: `8`（または適切なNPMバージョン）
+
+### デプロイトリガー
+
+以下のアクションでCloudflare Pagesへの自動デプロイがトリガーされます：
+
+- **本番環境**: 設定した本番ブランチ（通常は`main`）へのプッシュまたはマージ
+- **プレビュー環境**: 他のブランチへのプッシュ（プルリクエストごとにユニークなプレビューURLが生成されます）
+
+### カスタムドメインの設定
+
+Cloudflare Pagesでカスタムドメインを設定するには：
+
+1. Cloudflareダッシュボードで作成したPagesプロジェクトを選択します
+2. 「Custom domains」タブをクリックします
+3. 「Set up a custom domain」ボタンをクリックします
+4. 使用するドメインを入力し、指示に従って設定を完了します
+   - Cloudflareでホストしているドメインを使用する場合は、自動で設定されます
+   - 外部のDNSプロバイダーを使用している場合は、必要なDNSレコードを手動で設定する必要があります
+
+### トラブルシューティング
+
+デプロイに問題がある場合は、以下を確認してください：
+
+1. **ビルドエラー**: Cloudflare Pagesの「Deployments」タブでデプロイのビルドログを確認します
+2. **パス設定**: 404エラーが発生する場合は、`astro.config.mjs`の`base`パスが正しく設定されているか確認します
+3. **キャッシュの問題**: 変更が反映されない場合は、Cloudflareのキャッシュをパージするか、ハード更新（Ctrl+F5）を試してください
+4. **依存関係**: `package.json`に必要な依存関係がすべて含まれているか確認します
+
+詳細は[Cloudflare Pagesのドキュメント](https://developers.cloudflare.com/pages/)を参照してください。
+
 ## ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。
