@@ -1,0 +1,44 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import BlogPostPreview from "../../components/BlogPostPreview.astro";
+
+// Get all blog posts
+const posts = await Astro.glob('./*.md');
+const sortedPosts = posts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+);
+---
+
+<MainLayout title="Blog | RunFun Blog" description="Read our latest articles about running and fun activities">
+  <h1>All Blog Posts</h1>
+  
+  {sortedPosts.length === 0 ? (
+    <p>No blog posts available yet. Check back soon!</p>
+  ) : (
+    <div class="posts-grid">
+      {sortedPosts.map((post) => (
+        <BlogPostPreview
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={new Date(post.frontmatter.pubDate)}
+          url={post.url}
+          heroImage={post.frontmatter.heroImage}
+        />
+      ))}
+    </div>
+  )}
+</MainLayout>
+
+<style>
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-secondary);
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+</style>
