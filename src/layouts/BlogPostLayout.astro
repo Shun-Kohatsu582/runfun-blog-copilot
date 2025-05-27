@@ -5,37 +5,62 @@ import type { CollectionEntry } from "astro:content";
 interface Props {
   title: string;
   description?: string;
-  pubDate: Date;
-  updatedDate?: Date;
+  pubDate: Date | string;
+  updatedDate?: Date | string;
   heroImage?: string;
 }
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
-const formattedPubDate = pubDate.toLocaleDateString('en-us', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+// Format date or use a fallback
+function formatDate(date: Date | string | undefined) {
+  if (!date) return '';
+  
+  const dateObj = date instanceof Date ? date : new Date(date);
+  
+  if (isNaN(dateObj.getTime())) {
+    return String(date);
+  }
+  
+  return dateObj.toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
-const formattedUpdatedDate = updatedDate?.toLocaleDateString('en-us', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const formattedPubDate = formatDate(pubDate);
+const formattedUpdatedDate = formatDate(updatedDate);
+
+// Get ISO string safely
+function toISOSafe(date: Date | string | undefined) {
+  if (!date) return '';
+  
+  const dateObj = date instanceof Date ? date : new Date(date);
+  
+  if (isNaN(dateObj.getTime())) {
+    return '';
+  }
+  
+  return dateObj.toISOString();
+}
+
+const pubDateISO = toISOSafe(pubDate);
+const updatedDateISO = toISOSafe(updatedDate);
+---
 ---
 
 <MainLayout title={title} description={description}>
   <article class="blog-post">
-    {heroImage && <img src={heroImage} alt={title} class="hero-image" />}
+    {heroImage && <img src={import.meta.env.BASE_URL + '/' + heroImage.replace(/^\//, '')} alt={title} class="hero-image" />}
     
     <h1 class="title">{title}</h1>
     
     <div class="post-meta">
-      <time datetime={pubDate.toISOString()}>Published on {formattedPubDate}</time>
+      <time datetime={pubDateISO}>Published on {formattedPubDate}</time>
       {updatedDate && (
         <div class="updated-date">
-          <time datetime={updatedDate.toISOString()}>
+          <time datetime={updatedDateISO}>
             Updated on {formattedUpdatedDate}
           </time>
         </div>

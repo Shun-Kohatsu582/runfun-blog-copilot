@@ -19,7 +19,7 @@ const formattedDate = pubDate.toLocaleDateString('en-us', {
 <div class="post-preview">
   {heroImage && (
     <a href={url} class="image-link">
-      <img src={heroImage} alt={title} />
+      <img src={import.meta.env.BASE_URL + '/' + heroImage.replace(/^\//, '')} alt={title} />
     </a>
   )}
   <div class="content">

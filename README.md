@@ -50,6 +50,7 @@ npm run dev
 │       ├── blog/       # ブログ記事（Markdownファイル）
 │       ├── about.astro # アバウトページ
 │       └── index.astro # ホームページ
+├── dist/               # ビルド後の静的ファイル
 └── astro.config.mjs    # Astroの設定
 ```
 
@@ -80,7 +81,32 @@ heroImage: '/images/your-image.jpg' # オプション
 npm run build
 ```
 
-ビルドされたサイトは `dist/` ディレクトリにあり、お好みのホスティングプロバイダーにデプロイする準備が整っています。
+ビルドされたサイトは `dist/` ディレクトリにあります。
+
+## GitHub Pagesでのデプロイ
+
+このリポジトリはGitHub Pagesでホストできるように設定されています。以下の手順でデプロイしてください：
+
+1. リポジトリのSettings > Pagesに移動します
+2. Source設定で「Deploy from a branch」を選択します
+3. Branchドロップダウンから「main」ブランチと「/dist」フォルダを選択します
+4. 「Save」ボタンをクリックします
+
+デプロイが完了すると、サイトは以下のURLで公開されます：
+https://shun-kohatsu582.github.io/runfun-blog-copilot/
+
+### カスタムドメインの設定（オプション）
+
+カスタムドメインを使用する場合は、以下の手順で設定します：
+
+1. リポジトリのSettings > Pagesに移動します
+2. 「Custom domain」欄に使用するドメインを入力します（例：www.runfunblog.com）
+3. 「Save」ボタンをクリックします
+4. DNSプロバイダー側で必要なDNS設定を行います
+   - Apexドメイン（example.com）の場合：GitHubが提供するIPアドレスにAレコードを設定
+   - サブドメイン（www.example.com）の場合：`username.github.io`へのCNAMEレコードを設定
+
+詳細は[GitHub Pagesのドキュメント](https://docs.github.com/ja/pages/configuring-a-custom-domain-for-your-github-pages-site)を参照してください。
 
 ## ライセンス
 

@@ -1,6 +1,10 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://runfun-blog.netlify.app',
+  site: 'https://shun-kohatsu582.github.io',
+  base: '/runfun-blog-copilot',
+  build: {
+    assets: '_assets'
+  },
   integrations: [],
 });
