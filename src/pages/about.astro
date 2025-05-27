@@ -1,38 +1,34 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import { t } from "../utils/i18n";
 ---
 
-<MainLayout title="About | RunFun Blog" description="Learn more about RunFun Blog">
-  <h1>About RunFun Blog</h1>
+<MainLayout title={`${t("navigation.about")} | RunFun Blog`} description={`${t("navigation.about")} RunFun Blog`}>
+  <h1>{t("about.title")}</h1>
   
   <div class="about-content">
     <p>
-      Welcome to RunFun Blog, your destination for everything related to running 
-      and outdoor activities. Our mission is to inspire and help people enjoy an 
-      active lifestyle through informative and engaging content.
+      {t("about.intro")}
     </p>
     
-    <h2>What We Cover</h2>
+    <h2>{t("about.whatWeCover")}</h2>
     <ul>
-      <li>Running tips and techniques</li>
-      <li>Gear reviews and recommendations</li>
-      <li>Training plans for beginners to advanced runners</li>
-      <li>Nutrition advice for active individuals</li>
-      <li>Stories and experiences from the running community</li>
-      <li>Fun outdoor activities to complement your running routine</li>
+      <li>{t("about.items.tips")}</li>
+      <li>{t("about.items.gear")}</li>
+      <li>{t("about.items.training")}</li>
+      <li>{t("about.items.nutrition")}</li>
+      <li>{t("about.items.stories")}</li>
+      <li>{t("about.items.activities")}</li>
     </ul>
     
-    <h2>Our Philosophy</h2>
+    <h2>{t("about.philosophy")}</h2>
     <p>
-      We believe that running and outdoor activities should be enjoyable and accessible 
-      to everyone. Whether you're a seasoned marathoner or just starting your fitness 
-      journey, our content aims to provide value and inspiration for your active lifestyle.
+      {t("about.philosophyText")}
     </p>
     
-    <h2>Get In Touch</h2>
+    <h2>{t("about.getInTouch")}</h2>
     <p>
-      Have questions, suggestions, or want to contribute to RunFun Blog? 
-      We'd love to hear from you! Send us an email at <a href="mailto:contact@runfunblog.com">contact@runfunblog.com</a>.
+      {t("about.contact")} <a href="mailto:contact@runfunblog.com">contact@runfunblog.com</a>.
     </p>
   </div>
 </MainLayout>

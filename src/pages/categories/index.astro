@@ -1,5 +1,7 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
+import { t } from "../../utils/i18n";
+import i18next from "i18next";
 
 // Get all blog posts
 const posts = await Astro.glob('../blog/*.md');
@@ -26,21 +28,23 @@ const categories = posts.reduce((acc, post) => {
 const sortedCategories = Object.values(categories).sort((a, b) => 
   a.name.localeCompare(b.name)
 );
+
+const currentLanguage = i18next.language;
 ---
 
-<MainLayout title="Categories - RunFun Blog" description="Browse all blog post categories">
-  <h1>Categories</h1>
+<MainLayout title={`${t("categories.title")} - RunFun Blog`} description={`${t("categories.title")} - RunFun Blog`}>
+  <h1>{t("categories.title")}</h1>
   
-  <p class="intro">Browse all blog posts by category.</p>
+  <p class="intro">{t("categories.intro")}</p>
   
   {sortedCategories.length === 0 ? (
-    <p>No categories available yet. Check back soon!</p>
+    <p>{t("categories.noCategories")}</p>
   ) : (
     <div class="categories-grid">
       {sortedCategories.map((category) => (
         <a href={`/category/${category.slug}`} class="category-card">
-          <h2>{category.name}</h2>
-          <p>{category.count} {category.count === 1 ? 'post' : 'posts'}</p>
+          <h2>{currentLanguage === "ja" && t(`blog.categories.${category.name}`, category.name) || category.name}</h2>
+          <p>{category.count} {category.count === 1 ? t("categories.post") : t("categories.posts")}</p>
         </a>
       ))}
     </div>

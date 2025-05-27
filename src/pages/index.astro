@@ -1,6 +1,8 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
+import { t } from "../utils/i18n";
+import i18next from "i18next";
 
 // Get all blog posts
 const posts = await Astro.glob('./blog/*.md');
@@ -9,19 +11,19 @@ const sortedPosts = posts.sort(
 );
 ---
 
-<MainLayout title="RunFun Blog - Running and Fun Activities">
+<MainLayout title={t("common.title")}>
   <section class="intro">
-    <h1>Welcome to RunFun Blog</h1>
+    <h1>{t("home.welcome")}</h1>
     <p>
-      Explore articles about running, fitness, and fun outdoor activities. Find tips, stories, and inspiration for your active lifestyle.
+      {t("home.intro")}
     </p>
   </section>
 
   <section class="recent-posts">
-    <h2>Recent Posts</h2>
+    <h2>{t("home.recentPosts")}</h2>
     
     {sortedPosts.length === 0 ? (
-      <p>No blog posts available yet. Check back soon!</p>
+      <p>{t("home.noPosts")}</p>
     ) : (
       <div class="posts-grid">
         {sortedPosts.map((post) => (
@@ -32,7 +34,6 @@ const sortedPosts = posts.sort(
             url={post.url}
             heroImage={post.frontmatter.heroImage}
             categories={post.frontmatter.categories}
-          />
           />
         ))}
       </div>
