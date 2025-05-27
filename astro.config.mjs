@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import astroI18next from 'astro-i18next';
 
 // Detect if we're running on Cloudflare Pages
 const isCloudflarePages = process.env.CF_PAGES === 'true';
@@ -16,5 +17,7 @@ export default defineConfig({
   build: {
     assets: '_assets'
   },
-  integrations: [],
+  integrations: [
+    astroI18next()
+  ],
 });

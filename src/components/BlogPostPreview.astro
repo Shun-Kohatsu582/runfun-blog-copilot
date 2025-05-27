@@ -1,4 +1,7 @@
 ---
+import { t } from "astro-i18next";
+import i18next from "i18next";
+
 interface Props {
   title: string;
   description: string;
@@ -10,10 +13,11 @@ interface Props {
 
 const { title, description, pubDate, url, heroImage, categories } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('en-us', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
+const currentLocale = i18next.language || "en";
+const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP" : "en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
 });
 ---
 
@@ -39,7 +43,7 @@ const formattedDate = pubDate.toLocaleDateString('en-us', {
     </div>
     <h2 class="title"><a href={url}>{title}</a></h2>
     <p class="description">{description}</p>
-    <a href={url} class="read-more">Read more →</a>
+    <a href={url} class="read-more">{t("common.readMore")}</a>
   </div>
 </div>
 

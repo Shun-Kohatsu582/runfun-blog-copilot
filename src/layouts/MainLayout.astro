@@ -1,14 +1,19 @@
 ---
+import { t, l } from "astro-i18next";
+import { localizePath } from "astro-i18next";
+import i18next from "i18next";
+
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "A blog about running and fun activities" } = Astro.props;
+const { title, description = t("common.description") } = Astro.props;
+const currentLanguage = i18next.language;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={currentLanguage}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -100,6 +105,24 @@ const { title, description = "A blog about running and fun activities" } = Astro
       p, ul, ol {
         margin-bottom: 1rem;
       }
+      
+      .language-switcher {
+        text-align: center;
+        padding: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+      }
+      
+      .language-switcher a {
+        color: white;
+        text-decoration: none;
+        padding: 0 0.5rem;
+      }
+      
+      .language-switcher a.active {
+        font-weight: bold;
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
@@ -108,12 +131,16 @@ const { title, description = "A blog about running and fun activities" } = Astro
         <h1>RunFun Blog</h1>
         <nav>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/categories">Categories</a></li>
-            <li><a href="/about">About</a></li>
+            <li><a href={localizePath("/")}>{t("navigation.home")}</a></li>
+            <li><a href={localizePath("/blog")}>{t("navigation.blog")}</a></li>
+            <li><a href={localizePath("/categories")}>{t("navigation.categories")}</a></li>
+            <li><a href={localizePath("/about")}>{t("navigation.about")}</a></li>
           </ul>
         </nav>
+      </div>
+      <div class="language-switcher">
+        <a href={localizePath(Astro.url.pathname, "en")} class={currentLanguage === "en" ? "active" : ""}>English</a> |
+        <a href={localizePath(Astro.url.pathname, "ja")} class={currentLanguage === "ja" ? "active" : ""}>日本語</a>
       </div>
     </header>
     <main class="container">
@@ -121,7 +148,7 @@ const { title, description = "A blog about running and fun activities" } = Astro
     </main>
     <footer>
       <div class="container">
-        <p>&copy; {new Date().getFullYear()} RunFun Blog. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
       </div>
     </footer>
   </body>
