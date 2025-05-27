@@ -5,9 +5,10 @@ import i18next from "i18next";
 interface Props {
   title: string;
   description?: string;
+  isHomePage?: boolean;
 }
 
-const { title, description = t("common.description") } = Astro.props;
+const { title, description = t("common.description"), isHomePage = false } = Astro.props;
 const currentLanguage = i18next.language;
 ---
 
@@ -27,6 +28,7 @@ const currentLanguage = i18next.language;
         --color-primary: #3498db;
         --color-secondary: #2c3e50;
         --container-width: 800px;
+        --service-blue: #4da6ff;
       }
       
       * {
@@ -54,6 +56,13 @@ const currentLanguage = i18next.language;
         margin-bottom: 2rem;
       }
       
+      .home-header {
+        background-color: white;
+        color: #333;
+        padding: 1rem 0;
+        margin-bottom: 0;
+      }
+      
       header .container {
         display: flex;
         justify-content: space-between;
@@ -62,6 +71,20 @@ const currentLanguage = i18next.language;
       
       header h1 {
         margin: 0;
+      }
+
+      .logo a {
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+      
+      .menu-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #333;
+        padding: 0;
       }
       
       nav ul {
@@ -104,29 +127,67 @@ const currentLanguage = i18next.language;
       p, ul, ol {
         margin-bottom: 1rem;
       }
+
+      /* Home page specific styles */
+      .service-section {
+        background-color: var(--service-blue);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+      
+      .about-section {
+        padding: 4rem 0;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
-    <header>
-      <div class="container">
-        <h1>RunFun Blog</h1>
-        <nav>
-          <ul>
-            <li><a href={localizePath("/")}>{t("navigation.home")}</a></li>
-            <li><a href={localizePath("/blog")}>{t("navigation.blog")}</a></li>
-            <li><a href={localizePath("/categories")}>{t("navigation.categories")}</a></li>
-            <li><a href={localizePath("/about")}>{t("navigation.about")}</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main class="container">
+    {!isHomePage ? (
+      <header>
+        <div class="container">
+          <h1>RunFun Blog</h1>
+          <nav>
+            <ul>
+              <li><a href={localizePath("/")}>{t("navigation.home")}</a></li>
+              <li><a href={localizePath("/blog")}>{t("navigation.blog")}</a></li>
+              <li><a href={localizePath("/categories")}>{t("navigation.categories")}</a></li>
+              <li><a href={localizePath("/about")}>{t("navigation.about")}</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+    ) : (
+      <header class="home-header">
+        <div class="container">
+          <div class="logo">
+            <a href={localizePath("/")}>RunFun</a>
+          </div>
+          <button class="menu-toggle" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect y="4" width="24" height="2" fill="currentColor"></rect>
+              <rect y="11" width="24" height="2" fill="currentColor"></rect>
+              <rect y="18" width="24" height="2" fill="currentColor"></rect>
+            </svg>
+          </button>
+        </div>
+      </header>
+    )}
+    
+    <main class={isHomePage ? "" : "container"}>
       <slot />
     </main>
+    
     <footer>
       <div class="container">
         <p>&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
       </div>
     </footer>
+    
+    <script>
+      document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+        alert('Menu clicked!'); // Simple placeholder for menu functionality
+      });
+    </script>
   </body>
 </html>
