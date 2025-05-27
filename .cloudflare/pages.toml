@@ -1,0 +1,7 @@
+# Cloudflare Pages settings for Astro build process
+
+# Use latest supported Node.js version
+NODE_VERSION=18
+
+# Optionally specify npm version
+NPM_VERSION=9
