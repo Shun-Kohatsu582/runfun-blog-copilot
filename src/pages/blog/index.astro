@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import Sidebar from "../../components/Sidebar.astro";
 
 // Get all blog posts
 const posts = await Astro.glob('./*.md');
@@ -10,36 +11,146 @@ const sortedPosts = posts.sort(
 ---
 
 <MainLayout title="Blog | RunFun Blog" description="Read our latest articles about running and fun activities">
-  <h1>All Blog Posts</h1>
-  
-  {sortedPosts.length === 0 ? (
-    <p>No blog posts available yet. Check back soon!</p>
-  ) : (
-    <div class="posts-grid">
-      {sortedPosts.map((post) => (
-        <BlogPostPreview
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={new Date(post.frontmatter.pubDate)}
-          url={post.url}
-          heroImage={post.frontmatter.heroImage}
-          categories={post.frontmatter.categories}
-        />
-      ))}
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1>All Blog Posts</h1>
+      <p class="blog-subtitle">技術ブログやランニングに関するお役立ち情報をお届けします</p>
     </div>
-  )}
+    
+    <div class="blog-layout">
+      <!-- Sidebar -->
+      <Sidebar />
+      
+      <!-- Main Content -->
+      <main class="blog-main">
+        {sortedPosts.length === 0 ? (
+          <div class="no-posts">
+            <p>No blog posts available yet. Check back soon!</p>
+          </div>
+        ) : (
+          <div class="posts-grid">
+            {sortedPosts.map((post) => (
+              <BlogPostPreview
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                pubDate={new Date(post.frontmatter.pubDate)}
+                url={post.url}
+                heroImage={post.frontmatter.heroImage}
+                categories={post.frontmatter.categories}
+              />
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
+  </div>
 </MainLayout>
 
 <style>
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--color-secondary);
+  .blog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
-  
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+  }
+
+  .blog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+    background: linear-gradient(135deg, var(--service-blue), #3a93e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .blog-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .blog-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .blog-main {
+    min-height: 500px;
+  }
+
   .posts-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .no-posts {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .no-posts p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  /* Tablet layout */
+  @media (max-width: 1024px) {
+    .blog-layout {
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* Mobile layout */
+  @media (max-width: 768px) {
+    .blog-container {
+      padding: 0 0.5rem;
+    }
+
+    .blog-header {
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .blog-header h1 {
+      font-size: 2rem;
+    }
+
+    .blog-subtitle {
+      font-size: 1rem;
+    }
+
+    .blog-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .posts-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  /* Small mobile layout */
+  @media (max-width: 480px) {
+    .blog-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .blog-subtitle {
+      font-size: 0.9rem;
+    }
   }
 </style>

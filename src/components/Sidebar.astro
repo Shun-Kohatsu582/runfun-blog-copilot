@@ -1,0 +1,114 @@
+---
+// Extract unique categories from all blog posts
+const posts = await Astro.glob('../pages/blog/*.md');
+const allCategories = posts.flatMap(post => post.frontmatter.categories || []);
+const uniqueCategories = [...new Set(allCategories)].sort();
+---
+
+<aside class="sidebar">
+  <!-- About Section -->
+  <div class="sidebar-section">
+    <h3>About</h3>
+    <div class="about-content">
+      <p>「RunFun」と書いて「るんふぁん」</p>
+      <p>WEB ENGINEER 小波津 駿</p>
+      <p>沖縄県にてフリーのWEBエンジニアとして活動中。技術ブログやランニングに関するお役立ち情報を更新しています。</p>
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="sidebar-section">
+    <h3>Categories</h3>
+    <div class="categories-list">
+      {uniqueCategories.map((category) => (
+        <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
+          {category}
+        </a>
+      ))}
+    </div>
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .sidebar-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .sidebar-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .sidebar-section h3 {
+    color: var(--service-blue);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--service-blue);
+    padding-bottom: 0.5rem;
+  }
+
+  .about-content p {
+    margin-bottom: 0.75rem;
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  .about-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .category-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    color: var(--color-secondary);
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .category-link:hover {
+    background-color: var(--service-blue);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(77, 166, 255, 0.3);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: static;
+      margin-bottom: 2rem;
+    }
+    
+    .categories-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .category-link {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+</style>
