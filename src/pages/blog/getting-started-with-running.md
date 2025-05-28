@@ -3,7 +3,7 @@ layout: ../../layouts/BlogPostLayout.astro
 title: 'Getting Started with Running: Tips for Beginners'
 description: 'A comprehensive guide for beginners looking to start their running journey with tips on gear, form, and training.'
 pubDate: '2023-06-15'
-heroImage: '/images/running-beginners.jpg'
+heroImage: 'images/running-beginners.jpg'
 categories: ['Beginners', 'Training', 'Running Tips']
 ---
 
