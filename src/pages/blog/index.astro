@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import Sidebar from "../../components/Sidebar.astro";
 
 // Get all blog posts
 const posts = await Astro.glob('./*.md');
@@ -10,36 +11,89 @@ const sortedPosts = posts.sort(
 ---
 
 <MainLayout title="Blog | RunFun Blog" description="Read our latest articles about running and fun activities">
-  <h1>All Blog Posts</h1>
-  
-  {sortedPosts.length === 0 ? (
-    <p>No blog posts available yet. Check back soon!</p>
-  ) : (
-    <div class="posts-grid">
-      {sortedPosts.map((post) => (
-        <BlogPostPreview
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={new Date(post.frontmatter.pubDate)}
-          url={post.url}
-          heroImage={post.frontmatter.heroImage}
-          categories={post.frontmatter.categories}
-        />
-      ))}
-    </div>
-  )}
+  <div class="blog-container">
+    <aside class="sidebar-container">
+      <Sidebar />
+    </aside>
+    
+    <main class="main-content">
+      <h1>All Blog Posts</h1>
+      
+      {sortedPosts.length === 0 ? (
+        <p>No blog posts available yet. Check back soon!</p>
+      ) : (
+        <div class="posts-grid">
+          {sortedPosts.map((post) => (
+            <div class="post-card">
+              <BlogPostPreview
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                pubDate={new Date(post.frontmatter.pubDate)}
+                url={post.url}
+                heroImage={post.frontmatter.heroImage}
+                categories={post.frontmatter.categories}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </main>
+  </div>
 </MainLayout>
 
 <style>
+  .blog-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  @media (min-width: 992px) {
+    .blog-container {
+      grid-template-columns: 280px 1fr;
+    }
+  }
+  
+  .sidebar-container {
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 992px) {
+    .sidebar-container {
+      margin-bottom: 0;
+    }
+  }
+  
+  .main-content {
+    min-width: 0; /* Fix for grid overflow issues */
+  }
+  
   h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--color-secondary);
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  h1:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--service-blue);
   }
   
   .posts-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
+  }
+  
+  .post-card {
+    height: 100%;
+    display: flex;
   }
 </style>

@@ -1,0 +1,162 @@
+---
+import { t } from "../utils/i18n";
+import i18next from "i18next";
+
+// Get all blog posts to extract categories
+const posts = await Astro.glob('../pages/blog/*.md');
+
+// Extract all categories and count posts in each
+const categories = posts.reduce((acc, post) => {
+  const postCategories = post.frontmatter.categories || [];
+  
+  postCategories.forEach(category => {
+    if (!acc[category]) {
+      acc[category] = {
+        name: category,
+        count: 0,
+        slug: category.toLowerCase().replace(/\s+/g, '-')
+      };
+    }
+    acc[category].count += 1;
+  });
+  
+  return acc;
+}, {});
+
+// Convert to array and sort alphabetically
+const sortedCategories = Object.values(categories).sort((a, b) => 
+  a.name.localeCompare(b.name)
+);
+
+const currentLanguage = i18next.language;
+---
+
+<div class="sidebar">
+  <div class="sidebar-section about-section">
+    <h2>About</h2>
+    <div class="about-content">
+      <p>「RunFun」と書いて「るんふぁん」</p>
+      <div class="engineer-info">
+        <h3>WEB ENGINEER</h3>
+        <p class="engineer-name">小波津 駿</p>
+        <p class="engineer-name-en">KOHATSU SHUN</p>
+        <p class="engineer-location">沖縄県にてフリーのWEBエンジニアとして活動中</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="sidebar-section categories-section">
+    <h2>{t("categories.title")}</h2>
+    {sortedCategories.length === 0 ? (
+      <p>{t("categories.noCategories")}</p>
+    ) : (
+      <ul class="categories-list">
+        {sortedCategories.map((category) => (
+          <li>
+            <a href={`/category/${category.slug}`}>
+              {currentLanguage === "ja" && t(`blog.categories.${category.name}`, category.name) || category.name}
+              <span class="count">({category.count})</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+
+<style>
+  .sidebar {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .sidebar-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--service-blue);
+  }
+  
+  .about-content {
+    font-size: 0.95rem;
+  }
+  
+  .engineer-info {
+    margin-top: 1rem;
+  }
+  
+  .engineer-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--service-blue);
+  }
+  
+  .engineer-name {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .engineer-name-en {
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .engineer-location {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  .categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .categories-list li {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #e0e0e0;
+  }
+  
+  .categories-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .categories-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.95rem;
+  }
+  
+  .categories-list a:hover {
+    color: var(--service-blue);
+  }
+  
+  .count {
+    font-size: 0.85rem;
+    color: #666;
+    transition: color 0.2s;
+  }
+  
+  .categories-list a:hover .count {
+    color: var(--service-blue);
+  }
+</style>

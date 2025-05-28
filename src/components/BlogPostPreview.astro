@@ -49,35 +49,49 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
 
 <style>
   .post-preview {
-    margin-bottom: 2.5rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
-  @media (min-width: 768px) {
-    .post-preview {
-      grid-template-columns: 200px 1fr;
-    }
+  .post-preview:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
   
   .image-link {
     display: block;
+    position: relative;
+    overflow: hidden;
   }
   
   .post-preview img {
     width: 100%;
-    height: 150px;
+    height: 180px;
     object-fit: cover;
-    border-radius: 0.375rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .post-preview:hover img {
+    transform: scale(1.05);
+  }
+  
+  .content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
   
   .meta {
     color: #666;
     font-size: 0.875rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -92,7 +106,7 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   }
   
   .categories a {
-    color: var(--color-primary);
+    color: var(--service-blue);
     font-weight: 500;
     text-decoration: none;
     font-size: 0.75rem;
@@ -109,29 +123,47 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   
   .title {
     margin: 0 0 0.75rem 0;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.3;
   }
   
   .title a {
     color: var(--color-secondary);
     text-decoration: none;
+    transition: color 0.2s ease;
   }
   
   .title a:hover {
-    color: var(--color-primary);
+    color: var(--service-blue);
   }
   
   .description {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    color: #555;
+    flex-grow: 1;
   }
   
   .read-more {
     font-weight: 500;
     text-decoration: none;
+    color: var(--service-blue);
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-top: auto;
   }
   
   .read-more:hover {
-    text-decoration: underline;
+    color: var(--color-primary);
+  }
+  
+  .read-more:after {
+    content: "→";
+    margin-left: 0.25rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .read-more:hover:after {
+    transform: translateX(3px);
   }
 </style>
