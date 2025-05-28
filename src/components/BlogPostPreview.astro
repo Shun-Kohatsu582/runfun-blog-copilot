@@ -59,6 +59,7 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
     height: 100%;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
   
   .post-card:hover {
@@ -78,7 +79,7 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   
   .post-card img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
@@ -88,7 +89,7 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   }
   
   .content {
-    padding: 1.5rem;
+    padding: 1.25rem;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -126,8 +127,8 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   }
   
   .title {
-    margin: 0 0 1rem 0;
-    font-size: 1.25rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
     line-height: 1.3;
     flex: 1;
   }
@@ -143,9 +144,10 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
   }
   
   .description {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     color: #666;
     line-height: 1.6;
+    font-size: 0.95rem;
     flex: 1;
   }
   

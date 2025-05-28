@@ -88,7 +88,7 @@ const sortedPosts = posts.sort(
 
   .posts-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
   }
 
@@ -111,6 +111,10 @@ const sortedPosts = posts.sort(
     .blog-layout {
       grid-template-columns: 280px 1fr;
       gap: 2rem;
+    }
+
+    .posts-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
   }
 
@@ -140,6 +144,7 @@ const sortedPosts = posts.sort(
 
     .posts-grid {
       gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
   }
 
