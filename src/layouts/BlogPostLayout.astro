@@ -53,7 +53,7 @@ const updatedDateISO = toISOSafe(updatedDate);
 
 <MainLayout title={title} description={description}>
   <article class="blog-post">
-    {heroImage && <img src={import.meta.env.BASE_URL + '/' + heroImage.replace(/^\//, '')} alt={title} class="hero-image" />}
+    {heroImage && <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="hero-image" />}
     
     <h1 class="title">{title}</h1>
     
