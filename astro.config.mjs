@@ -7,8 +7,8 @@ const isCloudflarePages = process.env.CF_PAGES === 'true';
 const site = isCloudflarePages 
   ? process.env.CF_PAGES_URL || 'https://runfun-blog.pages.dev'
   : 'https://shun-kohatsu582.github.io';
-// For Cloudflare Pages, use root path; for GitHub Pages, use repository name
-const base = isCloudflarePages ? '/' : '/runfun-blog-copilot';
+// Use root path '/' for all deployments
+const base = '/';
 
 export default defineConfig({
   site,
