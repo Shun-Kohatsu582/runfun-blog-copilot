@@ -6,10 +6,9 @@ const uniqueCategories = [...new Set(allCategories)].sort();
 ---
 
 <aside class="sidebar">
-  <!-- About Section -->
   <div class="sidebar-section">
-    <h3>About</h3>
-    <div class="about-content">
+    <h2 class="sidebar-heading">About</h2>
+    <div class="about-box">
       <p>「RunFun」と書いて「るんふぁん」</p>
       <p>WEB ENGINEER 小波津 駿</p>
       <p>沖縄県にてフリーのWEBエンジニアとして活動中。技術ブログやランニングに関するお役立ち情報を更新しています。</p>
@@ -18,11 +17,14 @@ const uniqueCategories = [...new Set(allCategories)].sort();
 
   <!-- Categories Section -->
   <div class="sidebar-section">
-    <h3>Categories</h3>
-    <div class="categories-list">
+    <h2 class="sidebar-heading">Category</h2>
+    <div class="categories-box">
       {uniqueCategories.map((category) => (
         <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
-          {category}
+          <span class="category-name">{category}</span>
+          <span class="category-count">
+            {posts.filter(post => post.frontmatter.categories?.includes(category)).length}
+          </span>
         </a>
       ))}
     </div>
@@ -31,66 +33,75 @@ const uniqueCategories = [...new Set(allCategories)].sort();
 
 <style>
   .sidebar {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    height: fit-content;
-    position: sticky;
-    top: 2rem;
+    width: 100%;
   }
 
   .sidebar-section {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
-  .sidebar-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .sidebar-section h3 {
-    color: var(--service-blue);
-    font-size: 1.2rem;
+  .sidebar-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e293b; /* text-slate-800 */
     margin-bottom: 1rem;
-    font-weight: 600;
-    border-bottom: 2px solid var(--service-blue);
-    padding-bottom: 0.5rem;
   }
 
-  .about-content p {
+  .about-box {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  }
+
+  .about-box p {
+    color: #475569; /* text-slate-600 */
+    line-height: 1.5;
     margin-bottom: 0.75rem;
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.9rem;
   }
 
-  .about-content p:last-child {
+  .about-box p:last-child {
     margin-bottom: 0;
   }
 
-  .categories-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .categories-box {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    overflow: hidden;
   }
 
   .category-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #f8f9fa;
-    color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9; /* border-slate-100 */
+    color: inherit;
     text-decoration: none;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    transition: background-color 0.15s;
+  }
+
+  .category-link:last-child {
+    border-bottom: none;
   }
 
   .category-link:hover {
-    background-color: var(--service-blue);
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(77, 166, 255, 0.3);
+    background-color: #f1f5f9; /* bg-slate-100 */
+  }
+
+  .category-name {
+    color: #334155; /* text-slate-700 */
+    font-size: 1rem;
+  }
+
+  .category-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b; /* text-slate-500 */
+    background-color: #e2e8f0; /* bg-slate-200 */
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px; /* rounded-full */
   }
 
   /* Mobile responsiveness */
@@ -98,17 +109,6 @@ const uniqueCategories = [...new Set(allCategories)].sort();
     .sidebar {
       position: static;
       margin-bottom: 2rem;
-    }
-    
-    .categories-list {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    
-    .category-link {
-      font-size: 0.8rem;
-      padding: 0.4rem 0.8rem;
     }
   }
 </style>
