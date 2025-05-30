@@ -24,185 +24,131 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
 <article class="post-card">
   {heroImage && (
     <div class="image-container">
-      <a href={url} class="image-link">
-        <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} />
-      </a>
+      <div class="post-image" style={`background-image: url(${import.meta.env.BASE_URL + heroImage.replace(/^\//, '')})`}></div>
     </div>
   )}
   <div class="content">
-    <div class="meta">
-      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-      {categories && categories.length > 0 && (
-        <div class="categories">
-          {categories.map((category, index) => (
-            <>
-              <span class="category-tag">{category}</span>
-              {index < categories.length - 1 && <span class="separator">•</span>}
-            </>
-          ))}
-        </div>
-      )}
+    <div>
+      <h3 class="post-title">
+        <a href={url}>{title}</a>
+      </h3>
+      <p class="post-description">{description}</p>
     </div>
-    <h2 class="title"><a href={url}>{title}</a></h2>
-    <p class="description">{description}</p>
-    <a href={url} class="read-more">{t("common.readMore")}</a>
+    <a href={url} class="read-more">
+      {t("common.readMore")}
+      <svg class="read-more-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path 
+          clip-rule="evenodd" 
+          d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+          fill-rule="evenodd">
+        </path>
+      </svg>
+    </a>
   </div>
 </article>
 
 <style>
   .post-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-xl */
     overflow: hidden;
-    transition: all 0.3s ease;
-    height: 100%;
+    transition: box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
   }
   
   .post-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
   }
   
   .image-container {
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .image-link {
-    display: block;
-    position: relative;
-  }
-  
-  .post-card img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+    height: 16rem; /* h-64 */
+    overflow: hidden;
   }
   
-  .post-card:hover img {
-    transform: scale(1.05);
+  .post-image {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   .content {
-    padding: 1.25rem;
-    flex: 1;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
   }
   
-  .meta {
-    color: #666;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem;
+  .post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b; /* text-slate-800 */
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    transition: color 0.15s;
   }
   
-  .categories {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+  .post-card:hover .post-title a {
+    color: #2563eb; /* text-blue-600 */
   }
   
-  .category-tag {
-    background-color: var(--service-blue);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  
-  .separator {
-    color: #ccc;
-    font-size: 0.75rem;
-  }
-  
-  .title {
-    margin: 0 0 0.75rem 0;
-    font-size: 1.2rem;
-    line-height: 1.3;
-    flex: 1;
-  }
-  
-  .title a {
-    color: var(--color-secondary);
+  .post-title a {
+    color: inherit;
     text-decoration: none;
-    transition: color 0.3s ease;
   }
   
-  .title a:hover {
-    color: var(--service-blue);
-  }
-  
-  .description {
-    margin-bottom: 1.25rem;
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    flex: 1;
+  .post-description {
+    color: #475569; /* text-slate-600 */
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.5;
+    margin-bottom: 1rem;
   }
   
   .read-more {
-    color: var(--service-blue);
-    font-weight: 600;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #2563eb; /* text-blue-600 */
+    text-decoration: none;
+    transition: color 0.15s;
     align-self: flex-start;
+    margin-top: auto;
   }
   
   .read-more:hover {
-    color: #3a93e6;
-    transform: translateX(4px);
+    color: #1d4ed8; /* text-blue-800 */
   }
   
-  .read-more::after {
-    content: '→';
-    transition: transform 0.3s ease;
+  .read-more-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.25rem;
+    transform: translateX(0);
+    transition: transform 0.15s;
   }
   
-  .read-more:hover::after {
-    transform: translateX(2px);
+  .read-more:hover .read-more-icon {
+    transform: translateX(0.25rem);
   }
   
   /* Mobile responsiveness */
   @media (max-width: 768px) {
+    .image-container {
+      height: 12rem;
+    }
+    
     .content {
       padding: 1.25rem;
     }
     
-    .title {
+    .post-title {
       font-size: 1.1rem;
-    }
-    
-    .post-card img {
-      height: 160px;
-    }
-    
-    .meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    
-    .categories {
-      gap: 0.25rem;
-    }
-    
-    .category-tag {
-      font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
     }
   }
 </style>
