@@ -5,61 +5,90 @@ import i18next from "i18next";
 ---
 
 <MainLayout title={t("common.title")} isHomePage={true}>
-  <!-- Logo Section -->
-  <section class="logo-section">
-    <div class="container">
-      <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="logo-image" />
-    </div>
-  </section>
-
-  <!-- Service Section -->
-  <section class="service-section">
-    <div class="container">
-      <h2>SERVICE</h2>
-      
-      <div class="service-items">
-        <p>ホームページ制作・リニューアル</p>
-        <p>CMS構築（Wordpress・Movable Type）</p>
-        <p>LP作成</p>
-        <p>ホームページ運用保守</p>
-        <p>etc...</p>
+  <div class="fullscreen-container">
+    <!-- Logo Section -->
+    <section class="logo-section fullscreen-section">
+      <div class="container">
+        <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="logo-image" />
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About Section -->
-  <section class="about-section">
-    <div class="container">
-      <h2>ABOUT</h2>
-      
-      <div class="about-content">
-        <p>「RunFun」と書いて「るんふぁん」</p>
+    <!-- Service Section -->
+    <section class="service-section fullscreen-section">
+      <div class="container">
+        <h2>SERVICE</h2>
         
-        <div class="engineer-info">
-          <h3>WEB ENGINEER</h3>
-          <p class="engineer-name">小波津 駿</p>
-          <p class="engineer-name-en">KOHATSU SHUN</p>
-          
-          <p class="engineer-location">沖縄県にてフリーのWEBエンジニアとして活動中</p>
-          <p>WEB制作全般承ります</p>
+        <div class="service-items">
+          <p>ホームページ制作・リニューアル</p>
+          <p>CMS構築（Wordpress・Movable Type）</p>
+          <p>LP作成</p>
+          <p>ホームページ運用保守</p>
+          <p>etc...</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Blog Link Section -->
-  <section class="blog-link-section">
-    <div class="container">
-      <h2>BLOG</h2>
-      <p>技術ブログやお役立ち情報を更新しています</p>
-      <a href="/blog" class="blog-button">ブログを見る</a>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section class="about-section fullscreen-section">
+      <div class="container">
+        <h2>ABOUT</h2>
+        
+        <div class="about-content">
+          <p>「RunFun」と書いて「るんふぁん」</p>
+          
+          <div class="engineer-info">
+            <h3>WEB ENGINEER</h3>
+            <p class="engineer-name">小波津 駿</p>
+            <p class="engineer-name-en">KOHATSU SHUN</p>
+            
+            <p class="engineer-location">沖縄県にてフリーのWEBエンジニアとして活動中</p>
+            <p>WEB制作全般承ります</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Link Section -->
+    <section class="blog-link-section fullscreen-section">
+      <div class="container">
+        <h2>BLOG</h2>
+        <p>技術ブログやお役立ち情報を更新しています</p>
+        <a href="/blog" class="blog-button">ブログを見る</a>
+      </div>
+      
+      <!-- Footer within last section -->
+      <footer class="home-footer">
+        <div class="container">
+          <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
+          <p class="footer-credit">Designed with passion by 小波津 駿.</p>
+        </div>
+      </footer>
+    </section>
+  </div>
 </MainLayout>
 
 <style>
+  /* Full-screen container for scroll-snap */
+  .fullscreen-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  
+  /* Base full-screen section styling */
+  .fullscreen-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  
   .logo-section {
-    padding: 4rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,8 +103,6 @@ import i18next from "i18next";
   
   .service-section {
     background-color: var(--service-blue);
-    padding: 4rem 0;
-    text-align: center;
     color: white;
   }
   
@@ -92,11 +119,6 @@ import i18next from "i18next";
   .service-items p {
     margin-bottom: 1rem;
     font-size: 1.1rem;
-  }
-  
-  .about-section {
-    padding: 4rem 0;
-    text-align: center;
   }
   
   .about-section h2 {
@@ -132,9 +154,16 @@ import i18next from "i18next";
   }
   
   .blog-link-section {
-    padding: 3rem 0;
-    text-align: center;
     background-color: #f9f9f9;
+    justify-content: space-between;
+  }
+  
+  .blog-link-section .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .blog-link-section h2 {
@@ -159,5 +188,56 @@ import i18next from "i18next";
   
   .blog-button:hover {
     background-color: #3a93e6;
+  }
+  
+  /* Footer within last section */
+  .home-footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    padding: 2rem 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .home-footer .footer-copyright {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .home-footer .footer-credit {
+    font-size: 0.875rem;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .service-section h2,
+    .about-section h2,
+    .blog-link-section h2 {
+      font-size: 1.5rem;
+    }
+    
+    .engineer-name {
+      font-size: 1.2rem;
+    }
+    
+    .engineer-info h3 {
+      font-size: 1.1rem;
+    }
+    
+    .service-items p {
+      font-size: 1rem;
+    }
+    
+    .about-content,
+    .service-items {
+      padding: 0 1rem;
+    }
+  }
+  
+  /* Ensure touch scrolling works properly on mobile */
+  @media (hover: none) and (pointer: coarse) {
+    .fullscreen-container {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 </style>

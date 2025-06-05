@@ -153,6 +153,31 @@ const currentLanguage = i18next.language;
       }
 
       /* Home page specific styles */
+      .home-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+        color: #333;
+        padding: 1rem 0;
+        z-index: 100;
+        transition: background-color 0.3s ease;
+      }
+      
+      .home-header.scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .home-header .logo a {
+        font-weight: bold;
+        text-decoration: none;
+        color: inherit;
+        font-size: 1.5rem;
+      }
+      
       .service-section {
         background-color: var(--service-blue);
         color: white;
@@ -223,17 +248,35 @@ const currentLanguage = i18next.language;
       <slot />
     </main>
     
-    <footer>
-      <div class="container">
-        <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
-        <p class="footer-credit">Designed with passion by 小波津 駿.</p>
-      </div>
-    </footer>
+    {!isHomePage && (
+      <footer>
+        <div class="container">
+          <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
+          <p class="footer-credit">Designed with passion by 小波津 駿.</p>
+        </div>
+      </footer>
+    )}
     
     <script>
       document.querySelector('.menu-toggle')?.addEventListener('click', () => {
         alert('Menu clicked!'); // Simple placeholder for menu functionality
       });
+      
+      // Homepage scroll header effect
+      if (document.querySelector('.home-header')) {
+        const header = document.querySelector('.home-header');
+        const fullscreenContainer = document.querySelector('.fullscreen-container');
+        
+        if (fullscreenContainer) {
+          fullscreenContainer.addEventListener('scroll', () => {
+            if (fullscreenContainer.scrollTop > 50) {
+              header.classList.add('scrolled');
+            } else {
+              header.classList.remove('scrolled');
+            }
+          });
+        }
+      }
     </script>
   </body>
 </html>
