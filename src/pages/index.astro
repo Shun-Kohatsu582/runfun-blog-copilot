@@ -74,6 +74,18 @@ import i18next from "i18next";
     overflow-y: auto;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    /* Webkit-specific optimization for iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent scroll bouncing on iOS */
+    overscroll-behavior: none;
+  }
+  
+  /* Fallback for browsers that don't support scroll-snap */
+  @supports not (scroll-snap-type: y mandatory) {
+    .fullscreen-container {
+      /* Fallback behavior for older browsers */
+      scroll-behavior: smooth;
+    }
   }
   
   /* Base full-screen section styling */
@@ -232,12 +244,55 @@ import i18next from "i18next";
     .service-items {
       padding: 0 1rem;
     }
+    
+    /* Ensure content fits on smaller screens */
+    .engineer-info {
+      margin-top: 2rem;
+    }
+    
+    .blog-link-section p {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .logo-image {
+      max-height: 150px;
+    }
+    
+    .service-section h2,
+    .about-section h2,
+    .blog-link-section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .service-items p {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .engineer-name {
+      font-size: 1.1rem;
+    }
+    
+    .home-footer {
+      padding: 1.5rem 0;
+    }
+    
+    .home-footer .footer-copyright,
+    .home-footer .footer-credit {
+      font-size: 0.8rem;
+    }
   }
   
   /* Ensure touch scrolling works properly on mobile */
   @media (hover: none) and (pointer: coarse) {
     .fullscreen-container {
       -webkit-overflow-scrolling: touch;
+      /* Better snap behavior on touch devices */
+      scroll-snap-stop: always;
     }
   }
 </style>

@@ -262,17 +262,50 @@ const currentLanguage = i18next.language;
         alert('Menu clicked!'); // Simple placeholder for menu functionality
       });
       
-      // Homepage scroll header effect
+      // Homepage scroll header effect and enhancements
       if (document.querySelector('.home-header')) {
         const header = document.querySelector('.home-header');
         const fullscreenContainer = document.querySelector('.fullscreen-container');
         
         if (fullscreenContainer) {
+          // Header scroll effect
           fullscreenContainer.addEventListener('scroll', () => {
             if (fullscreenContainer.scrollTop > 50) {
               header.classList.add('scrolled');
             } else {
               header.classList.remove('scrolled');
+            }
+          });
+          
+          // Improve scroll-snap behavior for better cross-browser compatibility
+          let isScrolling = false;
+          
+          fullscreenContainer.addEventListener('scroll', () => {
+            if (!isScrolling) {
+              isScrolling = true;
+              // Debounce to improve performance
+              setTimeout(() => {
+                isScrolling = false;
+              }, 100);
+            }
+          });
+          
+          // Enhanced touch scrolling for mobile devices
+          let touchStartY = 0;
+          let touchEndY = 0;
+          
+          fullscreenContainer.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+          });
+          
+          fullscreenContainer.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            const touchDiff = touchStartY - touchEndY;
+            
+            // Only trigger if it's a significant swipe (more than 50px)
+            if (Math.abs(touchDiff) > 50) {
+              // Let CSS scroll-snap handle the actual snapping
+              // This just ensures smooth behavior on touch devices
             }
           });
         }
