@@ -1,0 +1,28 @@
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.all-categories {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.all-categories:hover {
+  text-decoration: underline;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}

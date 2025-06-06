@@ -43,6 +43,7 @@ const description = `Blog posts about ${category} - RunFun Blog`;
 ---
 
 <MainLayout title={title} description={description}>
+  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/category.css'} slot="head" />
   <div class="category-header">
     <h1>{category}</h1>
     <a href="/categories" class="all-categories">View all categories</a>
@@ -65,34 +66,3 @@ const description = `Blog posts about ${category} - RunFun Blog`;
     </div>
   )}
 </MainLayout>
-
-<style>
-  .category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: var(--color-secondary);
-    margin: 0;
-  }
-  
-  .all-categories {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .all-categories:hover {
-    text-decoration: underline;
-  }
-  
-  .posts-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-</style>

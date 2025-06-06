@@ -4,6 +4,7 @@ import { t } from "../utils/i18n";
 ---
 
 <MainLayout title={`${t("navigation.about")} | RunFun Blog`} description={`${t("navigation.about")} RunFun Blog`}>
+  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/about.css'} slot="head" />
   <h1>{t("about.title")}</h1>
   
   <div class="about-content">
@@ -32,37 +33,3 @@ import { t } from "../utils/i18n";
     </p>
   </div>
 </MainLayout>
-
-<style>
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--color-secondary);
-  }
-  
-  .about-content {
-    max-width: 700px;
-  }
-  
-  h2 {
-    font-size: 1.8rem;
-    margin: 2rem 0 1rem;
-    color: var(--color-secondary);
-  }
-  
-  p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
-  
-  ul {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-  }
-  
-  li {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-  }
-</style>
