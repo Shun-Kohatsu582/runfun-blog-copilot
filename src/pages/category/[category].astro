@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import Sidebar from "../../components/Sidebar.astro";
 
 export async function getStaticPaths() {
   const posts = await Astro.glob('../blog/*.md');
@@ -44,25 +45,37 @@ const description = `Blog posts about ${category} - RunFun Blog`;
 
 <MainLayout title={title} description={description}>
   <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/category.css'} slot="head" />
-  <div class="category-header">
-    <h1>{category}</h1>
-    <a href="/categories" class="all-categories">View all categories</a>
-  </div>
-  
-  {sortedPosts.length === 0 ? (
-    <p>No posts found in this category. Check back soon!</p>
-  ) : (
-    <div class="posts-grid">
-      {sortedPosts.map((post) => (
-        <BlogPostPreview
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={new Date(post.frontmatter.pubDate)}
-          url={post.url}
-          heroImage={post.frontmatter.heroImage}
-          categories={post.frontmatter.categories}
-        />
-      ))}
+  <div class="category-container">
+    <div class="category-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar-wrapper">
+        <Sidebar currentCategory={category} />
+      </aside>
+      
+      <!-- Main Content -->
+      <main class="category-main">
+        <div class="category-header">
+          <h1>{category}</h1>
+          <a href="/categories" class="all-categories">View all categories</a>
+        </div>
+        
+        {sortedPosts.length === 0 ? (
+          <p>No posts found in this category. Check back soon!</p>
+        ) : (
+          <div class="posts-grid">
+            {sortedPosts.map((post) => (
+              <BlogPostPreview
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                pubDate={new Date(post.frontmatter.pubDate)}
+                url={post.url}
+                heroImage={post.frontmatter.heroImage}
+                categories={post.frontmatter.categories}
+              />
+            ))}
+          </div>
+        )}
+      </main>
     </div>
-  )}
+  </div>
 </MainLayout>

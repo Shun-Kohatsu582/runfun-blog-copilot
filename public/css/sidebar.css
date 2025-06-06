@@ -56,6 +56,24 @@
   background-color: #f1f5f9; /* bg-slate-100 */
 }
 
+.category-link.current {
+  background-color: #3498db; /* primary color */
+  color: white;
+}
+
+.category-link.current:hover {
+  background-color: #2980b9; /* darker primary */
+}
+
+.category-link.current .category-name {
+  color: white;
+}
+
+.category-link.current .category-count {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
 .category-name {
   color: #334155; /* text-slate-700 */
   font-size: 1rem;
