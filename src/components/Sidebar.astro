@@ -3,6 +3,9 @@
 const posts = await Astro.glob('../pages/blog/*.md');
 const allCategories = posts.flatMap(post => post.frontmatter.categories || []);
 const uniqueCategories = [...new Set(allCategories)].sort();
+
+// Get current category prop if provided
+const { currentCategory } = Astro.props;
 ---
 
 <aside class="sidebar">
@@ -21,7 +24,8 @@ const uniqueCategories = [...new Set(allCategories)].sort();
     <h2 class="sidebar-heading">Category</h2>
     <div class="categories-box">
       {uniqueCategories.map((category) => (
-        <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
+        <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} 
+           class={`category-link ${currentCategory === category ? 'current' : ''}`}>
           <span class="category-name">{category}</span>
           <span class="category-count">
             {posts.filter(post => post.frontmatter.categories?.includes(category)).length}
