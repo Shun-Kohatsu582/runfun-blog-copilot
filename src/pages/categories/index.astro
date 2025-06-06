@@ -44,7 +44,7 @@ const currentLanguage = i18next.language;
     <div class="categories-grid">
       {sortedCategories.map((category) => (
         <a href={`/category/${category.slug}`} class="category-card">
-          <h2>{currentLanguage === "ja" && t(`blog.categories.${category.name}`, category.name) || category.name}</h2>
+          <h2>{category.name}</h2>
           <p>{category.count} {category.count === 1 ? t("categories.post") : t("categories.posts")}</p>
         </a>
       ))}
