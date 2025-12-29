@@ -6,10 +6,10 @@ const uniqueCategories = [...new Set(allCategories)].sort();
 
 // Get current category prop if provided
 const { currentCategory } = Astro.props;
+import "../styles/sidebar.scss";
 ---
 
 <aside class="sidebar">
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/sidebar.css'} />
   <div class="sidebar-section">
     <h2 class="sidebar-heading">About</h2>
     <div class="about-box">
@@ -24,7 +24,7 @@ const { currentCategory } = Astro.props;
     <h2 class="sidebar-heading">Category</h2>
     <div class="categories-box">
       {uniqueCategories.map((category) => (
-        <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} 
+        <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
            class={`category-link ${currentCategory === category ? 'current' : ''}`}>
           <span class="category-name">{category}</span>
           <span class="category-count">

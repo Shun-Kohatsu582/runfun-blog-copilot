@@ -2,6 +2,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import { t } from "../../utils/i18n";
 import i18next from "i18next";
+import "../../styles/categories.scss";
 
 // Get all blog posts
 const posts = await Astro.glob('../blog/*.md');
@@ -9,7 +10,7 @@ const posts = await Astro.glob('../blog/*.md');
 // Extract all categories and count posts in each
 const categories = posts.reduce((acc, post) => {
   const postCategories = post.frontmatter.categories || [];
-  
+
   postCategories.forEach(category => {
     if (!acc[category]) {
       acc[category] = {
@@ -20,12 +21,12 @@ const categories = posts.reduce((acc, post) => {
     }
     acc[category].count += 1;
   });
-  
+
   return acc;
 }, {});
 
 // Convert to array and sort alphabetically
-const sortedCategories = Object.values(categories).sort((a, b) => 
+const sortedCategories = Object.values(categories).sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
@@ -33,11 +34,10 @@ const currentLanguage = i18next.language;
 ---
 
 <MainLayout title={`${t("categories.title")} - RunFun Blog`} description={`${t("categories.title")} - RunFun Blog`}>
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/categories.css'} slot="head" />
   <h1>{t("categories.title")}</h1>
-  
+
   <p class="intro">{t("categories.intro")}</p>
-  
+
   {sortedCategories.length === 0 ? (
     <p>{t("categories.noCategories")}</p>
   ) : (

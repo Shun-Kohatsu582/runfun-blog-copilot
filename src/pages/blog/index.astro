@@ -2,6 +2,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import Sidebar from "../../components/Sidebar.astro";
+import "../../styles/blog.scss";
 
 // Get all blog posts
 const posts = await Astro.glob('./*.md');
@@ -11,18 +12,17 @@ const sortedPosts = posts.sort(
 ---
 
 <MainLayout title="Blog | RunFun Blog" description="Read our latest articles about running and fun activities">
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/blog.css'} slot="head" />
   <div class="blog-container">
     <div class="blog-layout">
       <!-- Sidebar -->
       <aside class="sidebar-wrapper">
         <Sidebar />
       </aside>
-      
+
       <!-- Main Content -->
       <main class="blog-main">
         <h1 class="blog-title">Blog Posts</h1>
-        
+
         {sortedPosts.length === 0 ? (
           <div class="no-posts">
             <p>No blog posts available yet. Check back soon!</p>

@@ -2,10 +2,10 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import { t } from "../utils/i18n";
 import i18next from "i18next";
+import "../styles/home.scss";
 ---
 
 <MainLayout title={t("common.title")} isHomePage={true}>
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/home.css'} slot="head" />
   <div class="fullscreen-container">
     <!-- Logo Section -->
     <section class="logo-section fullscreen-section">
@@ -18,12 +18,13 @@ import i18next from "i18next";
     <section class="service-section fullscreen-section">
       <div class="container">
         <h2>SERVICE</h2>
-        
+
         <div class="service-items">
           <p>ホームページ制作・リニューアル</p>
           <p>CMS構築（Wordpress・Movable Type）</p>
           <p>LP作成</p>
           <p>ホームページ運用保守</p>
+          <p>kintoneアプリ開発</p>
           <p>etc...</p>
         </div>
       </div>
@@ -33,15 +34,15 @@ import i18next from "i18next";
     <section class="about-section fullscreen-section">
       <div class="container">
         <h2>ABOUT</h2>
-        
+
         <div class="about-content">
-          <p>「RunFun」と書いて「るんふぁん」</p>
-          
+          <p>「RunFun」と書いて「るんふん」</p>
+
           <div class="engineer-info">
             <h3>WEB ENGINEER</h3>
             <p class="engineer-name">小波津 駿</p>
             <p class="engineer-name-en">KOHATSU SHUN</p>
-            
+
             <p class="engineer-location">沖縄県にてフリーのWEBエンジニアとして活動中</p>
             <p>WEB制作全般承ります</p>
           </div>
@@ -56,12 +57,12 @@ import i18next from "i18next";
         <p>技術ブログやお役立ち情報を更新しています</p>
         <a href="/blog" class="blog-button">ブログを見る</a>
       </div>
-      
+
       <!-- Footer within last section -->
       <footer class="home-footer">
         <div class="container">
           <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
-          <p class="footer-credit">Designed with passion by 小波津 駿.</p>
+          <p class="footer-credit">Designed with passion by Runfun.</p>
         </div>
       </footer>
     </section>

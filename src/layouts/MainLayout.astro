@@ -1,5 +1,6 @@
 ---
 import { t, localizePath } from "../utils/i18n";
+import "../styles/main.scss";
 import i18next from "i18next";
 
 interface Props {
@@ -21,11 +22,12 @@ const currentLanguage = i18next.language;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + 'favicon.svg'} />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" 
-          href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900&display=swap" 
-          as="style" 
-          onload="this.rel='stylesheet'" />
-    <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/main.css'} />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900&display=swap"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
     <slot name="head" />
   </head>
   <body>
@@ -61,11 +63,11 @@ const currentLanguage = i18next.language;
         </div>
       </header>
     )}
-    
+
     <main class={isHomePage ? "" : "container"}>
       <slot />
     </main>
-    
+
     {!isHomePage && (
       <footer>
         <div class="container">
@@ -74,17 +76,17 @@ const currentLanguage = i18next.language;
         </div>
       </footer>
     )}
-    
+
     <script>
       document.querySelector('.menu-toggle')?.addEventListener('click', () => {
         alert('Menu clicked!'); // Simple placeholder for menu functionality
       });
-      
+
       // Homepage scroll header effect and enhancements
       if (document.querySelector('.home-header')) {
         const header = document.querySelector('.home-header');
         const fullscreenContainer = document.querySelector('.fullscreen-container');
-        
+
         if (fullscreenContainer) {
           // Header scroll effect
           fullscreenContainer.addEventListener('scroll', () => {
@@ -94,10 +96,10 @@ const currentLanguage = i18next.language;
               header.classList.remove('scrolled');
             }
           });
-          
+
           // Improve scroll-snap behavior for better cross-browser compatibility
           let isScrolling = false;
-          
+
           fullscreenContainer.addEventListener('scroll', () => {
             if (!isScrolling) {
               isScrolling = true;
@@ -107,19 +109,19 @@ const currentLanguage = i18next.language;
               }, 100);
             }
           });
-          
+
           // Enhanced touch scrolling for mobile devices
           let touchStartY = 0;
           let touchEndY = 0;
-          
+
           fullscreenContainer.addEventListener('touchstart', (e) => {
             touchStartY = e.changedTouches[0].screenY;
           });
-          
+
           fullscreenContainer.addEventListener('touchend', (e) => {
             touchEndY = e.changedTouches[0].screenY;
             const touchDiff = touchStartY - touchEndY;
-            
+
             // Only trigger if it's a significant swipe (more than 50px)
             if (Math.abs(touchDiff) > 50) {
               // Let CSS scroll-snap handle the actual snapping

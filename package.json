@@ -16,5 +16,8 @@
     "astro": "^5.9.0",
     "astro-i18next": "^1.0.0-beta.21",
     "i18next": "^25.2.1"
+  },
+  "devDependencies": {
+    "sass": "^1.81.0"
   }
 }

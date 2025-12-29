@@ -1,6 +1,7 @@
 ---
 import { t } from "../utils/i18n";
 import i18next from "i18next";
+import "../styles/blog-post-preview.scss";
 
 interface Props {
   title: string;
@@ -22,7 +23,6 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
 ---
 
 <article class="post-card">
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/blog-post-preview.css'} />
   {heroImage && (
     <div class="image-container">
       <div class="post-image" style={`background-image: url(${import.meta.env.BASE_URL + heroImage.replace(/^\//, '')})`}></div>
@@ -38,8 +38,8 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
     <a href={url} class="read-more">
       {t("common.readMore")}
       <svg class="read-more-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <path 
-          clip-rule="evenodd" 
+        <path
+          clip-rule="evenodd"
           d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
           fill-rule="evenodd">
         </path>

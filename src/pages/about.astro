@@ -1,17 +1,17 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import { t } from "../utils/i18n";
+import "../styles/about.scss";
 ---
 
 <MainLayout title={`${t("navigation.about")} | RunFun Blog`} description={`${t("navigation.about")} RunFun Blog`}>
-  <link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/about.css'} slot="head" />
   <h1>{t("about.title")}</h1>
-  
+
   <div class="about-content">
     <p>
       {t("about.intro")}
     </p>
-    
+
     <h2>{t("about.whatWeCover")}</h2>
     <ul>
       <li>{t("about.items.tips")}</li>
@@ -21,12 +21,12 @@ import { t } from "../utils/i18n";
       <li>{t("about.items.stories")}</li>
       <li>{t("about.items.activities")}</li>
     </ul>
-    
+
     <h2>{t("about.philosophy")}</h2>
     <p>
       {t("about.philosophyText")}
     </p>
-    
+
     <h2>{t("about.getInTouch")}</h2>
     <p>
       {t("about.contact")} <a href="mailto:contact@runfunblog.com">contact@runfunblog.com</a>.
