@@ -14,6 +14,7 @@ const base = '/';
 export default defineConfig({
   site,
   base,
+  output: 'static',
   build: {
     assets: '_assets'
   },
