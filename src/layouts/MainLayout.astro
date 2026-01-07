@@ -1,6 +1,5 @@
 ---
 import { t, localizePath } from "../utils/i18n";
-import "../styles/main.scss";
 import i18next from "i18next";
 
 interface Props {
@@ -24,62 +23,158 @@ const currentLanguage = i18next.language;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&display=swap"
       as="style"
       onload="this.rel='stylesheet'"
     />
     <slot name="head" />
   </head>
-  <body>
+  <body class="font-sans bg-slate-50 text-slate-700 leading-relaxed">
     {!isHomePage ? (
-      <header class="blog-header">
-        <div class="container">
-          <div class="header-content">
-            <h1 class="site-title">RunFun Blog</h1>
+      <header class="bg-white text-slate-900 py-4 shadow-md sticky top-0 z-50">
+        <div class="max-w-container mx-auto px-4">
+          <div class="flex items-center justify-between h-20">
+            <h1 class="text-3xl font-bold text-slate-800 m-0">RunFun Blog</h1>
             <nav>
-              <ul>
-                <li><a href={localizePath("/")}>{t("navigation.home")}</a></li>
-                <li><a href={localizePath("/blog")}>{t("navigation.blog")}</a></li>
-                <li><a href={localizePath("/categories")}>{t("navigation.categories")}</a></li>
-                <li><a href={localizePath("/about")}>{t("navigation.about")}</a></li>
+              <ul class="flex list-none p-0 gap-6">
+                <li><a href={localizePath("/")} class="text-slate-600 no-underline transition-colors text-lg font-medium hover:text-blue-600">{t("navigation.home")}</a></li>
+                <li><a href={localizePath("/blog")} class="text-slate-600 no-underline transition-colors text-lg font-medium hover:text-blue-600">{t("navigation.blog")}</a></li>
+                <li><a href={localizePath("/categories")} class="text-slate-600 no-underline transition-colors text-lg font-medium hover:text-blue-600">{t("navigation.categories")}</a></li>
+                <li><a href={localizePath("/about")} class="text-slate-600 no-underline transition-colors text-lg font-medium hover:text-blue-600">{t("navigation.about")}</a></li>
               </ul>
             </nav>
           </div>
         </div>
       </header>
     ) : (
-      <header class="home-header">
-        <div class="container">
-          <div class="logo">
-            <a href={localizePath("/")}>RunFun</a>
+      <>
+        <header class="home-header fixed top-0 left-0 right-0 bg-transparent text-slate-900 py-4 z-[100] transition-colors">
+          <div class="max-w-container mx-auto px-4">
+            <div class="flex justify-between items-center">
+              <div class="logo">
+                <a href={localizePath("/")} class="font-bold no-underline text-inherit text-2xl">RunFun</a>
+              </div>
+              <button class="menu-toggle bg-transparent border-none cursor-pointer text-slate-900 p-2 z-[101] relative" aria-label="Menu" aria-expanded="false">
+                <svg class="menu-icon-open w-6 h-6 transition-opacity" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="4" width="24" height="2" fill="currentColor"></rect>
+                  <rect y="11" width="24" height="2" fill="currentColor"></rect>
+                  <rect y="18" width="24" height="2" fill="currentColor"></rect>
+                </svg>
+                <svg class="menu-icon-close w-6 h-6 transition-opacity absolute top-2 left-2 opacity-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
           </div>
-          <button class="menu-toggle" aria-label="Menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect y="4" width="24" height="2" fill="currentColor"></rect>
-              <rect y="11" width="24" height="2" fill="currentColor"></rect>
-              <rect y="18" width="24" height="2" fill="currentColor"></rect>
-            </svg>
-          </button>
-        </div>
-      </header>
+        </header>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[99] opacity-0 invisible transition-all duration-300" id="menuOverlay"></div>
+
+        <!-- Mobile Menu -->
+        <nav class="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[100] transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto" id="mobileMenu">
+          <div class="p-6 pt-20">
+            <ul class="flex flex-col gap-4 list-none p-0 m-0">
+              <li>
+                <a href={localizePath("/")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  {t("navigation.home")}
+                </a>
+              </li>
+              <li>
+                <a href={localizePath("/blog")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  {t("navigation.blog")}
+                </a>
+              </li>
+              <li>
+                <a href={localizePath("/categories")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  {t("navigation.categories")}
+                </a>
+              </li>
+              <li>
+                <a href={localizePath("/about")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  {t("navigation.about")}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </>
     )}
 
-    <main class={isHomePage ? "" : "container"}>
+    <main class={isHomePage ? "" : "max-w-container mx-auto px-4"}>
       <slot />
     </main>
 
     {!isHomePage && (
-      <footer>
-        <div class="container">
-          <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
-          <p class="footer-credit">Designed with passion by 小波津 駿.</p>
+      <footer class="bg-gray-100 text-gray-500 py-12 mt-8 text-center">
+        <div class="max-w-container mx-auto px-4">
+          <p class="text-lg mb-2">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
+          <p class="text-sm">Designed with passion by 小波津 駿.</p>
         </div>
       </footer>
     )}
 
     <script>
-      document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-        alert('Menu clicked!'); // Simple placeholder for menu functionality
+      // Mobile menu toggle functionality
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuIconOpen = document.querySelector('.menu-icon-open');
+      const menuIconClose = document.querySelector('.menu-icon-close');
+      let isMenuOpen = false;
+
+      function openMenu() {
+        if (!mobileMenu || !menuOverlay || !menuToggle) return;
+
+        isMenuOpen = true;
+        mobileMenu.classList.remove('translate-x-full');
+        menuOverlay.classList.remove('opacity-0', 'invisible');
+        menuOverlay.classList.add('opacity-100', 'visible');
+        menuIconOpen?.classList.add('opacity-0');
+        menuIconClose?.classList.remove('opacity-0');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        if (!mobileMenu || !menuOverlay || !menuToggle) return;
+
+        isMenuOpen = false;
+        mobileMenu.classList.add('translate-x-full');
+        menuOverlay.classList.remove('opacity-100', 'visible');
+        menuOverlay.classList.add('opacity-0', 'invisible');
+        menuIconOpen?.classList.remove('opacity-0');
+        menuIconClose?.classList.add('opacity-0');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      menuToggle?.addEventListener('click', () => {
+        if (isMenuOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      // Close menu when clicking overlay
+      menuOverlay?.addEventListener('click', () => {
+        closeMenu();
+      });
+
+      // Close menu when clicking menu links
+      const menuLinks = mobileMenu?.querySelectorAll('a');
+      menuLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+          closeMenu();
+        });
+      });
+
+      // Close menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMenuOpen) {
+          closeMenu();
+        }
       });
 
       // Homepage scroll header effect and enhancements
@@ -91,9 +186,9 @@ const currentLanguage = i18next.language;
           // Header scroll effect
           fullscreenContainer.addEventListener('scroll', () => {
             if (fullscreenContainer.scrollTop > 50) {
-              header.classList.add('scrolled');
+              header.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-md');
             } else {
-              header.classList.remove('scrolled');
+              header.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-md');
             }
           });
 

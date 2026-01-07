@@ -1,7 +1,6 @@
 ---
 import MainLayout from "./MainLayout.astro";
 import type { CollectionEntry } from "astro:content";
-import "../styles/blog-post.scss";
 
 interface Props {
   title: string;
@@ -53,27 +52,27 @@ const updatedDateISO = toISOSafe(updatedDate);
 ---
 
 <MainLayout title={title} description={description}>
-  <article class="blog-post">
-    {heroImage && <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="hero-image" />}
+  <article class="mb-12">
+    {heroImage && <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="w-full h-auto rounded-lg mb-6 object-cover max-h-[400px]" />}
 
-    <h1 class="title">{title}</h1>
+    <h1 class="text-4xl mb-2">{title}</h1>
 
-    <div class="post-meta">
+    <div class="text-gray-600 text-sm mb-8">
       <time datetime={pubDateISO}>Published on {formattedPubDate}</time>
       {updatedDate && (
-        <div class="updated-date">
+        <div class="mt-2 italic">
           <time datetime={updatedDateISO}>
             Updated on {formattedUpdatedDate}
           </time>
         </div>
       )}
       {categories && categories.length > 0 && (
-        <div class="categories">
+        <div class="mt-3 flex items-center gap-2">
           <span>Categories: </span>
-          <ul>
+          <ul class="flex list-none p-0 m-0 gap-2 flex-wrap">
             {categories.map((category) => (
-              <li>
-                <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`}>{category}</a>
+              <li class="m-0">
+                <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="inline-block bg-primary text-white px-2 py-1 rounded text-xs no-underline transition-colors hover:bg-secondary">{category}</a>
               </li>
             ))}
           </ul>
@@ -81,7 +80,7 @@ const updatedDateISO = toISOSafe(updatedDate);
       )}
     </div>
 
-    <div class="post-content">
+    <div class="post-content leading-relaxed [&_h2]:text-3xl [&_h2]:my-8 [&_h2]:mt-4 [&_h3]:text-2xl [&_h3]:my-6 [&_h3]:mt-4 [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6 [&_blockquote]:text-gray-600 [&_pre]:bg-gray-50 [&_pre]:p-4 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:my-6 [&_code]:bg-gray-50 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm">
       <slot />
     </div>
   </article>

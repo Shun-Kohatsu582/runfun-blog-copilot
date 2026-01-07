@@ -6,28 +6,37 @@ const uniqueCategories = [...new Set(allCategories)].sort();
 
 // Get current category prop if provided
 const { currentCategory } = Astro.props;
-import "../styles/sidebar.scss";
 ---
 
-<aside class="sidebar">
-  <div class="sidebar-section">
-    <h2 class="sidebar-heading">About</h2>
-    <div class="about-box">
-      <p>「RunFun」と書いて「るんふぁん」</p>
-      <p>WEB ENGINEER 小波津 駿</p>
-      <p>沖縄県にてフリーのWEBエンジニアとして活動中。技術ブログやランニングに関するお役立ち情報を更新しています。</p>
+<aside class="w-full">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-slate-800 mb-4">About</h2>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <p class="text-slate-600 leading-relaxed mb-3">「RunFun」と書いて「るんふぁん」</p>
+      <p class="text-slate-600 leading-relaxed mb-3">WEB ENGINEER 小波津 駿</p>
+      <p class="text-slate-600 leading-relaxed mb-0">沖縄県にてフリーのWEBエンジニアとして活動中。技術ブログやランニングに関するお役立ち情報を更新しています。</p>
     </div>
   </div>
 
   <!-- Categories Section -->
-  <div class="sidebar-section">
-    <h2 class="sidebar-heading">Category</h2>
-    <div class="categories-box">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-slate-800 mb-4">Category</h2>
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
       {uniqueCategories.map((category) => (
         <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
-           class={`category-link ${currentCategory === category ? 'current' : ''}`}>
-          <span class="category-name">{category}</span>
-          <span class="category-count">
+           class={`flex items-center justify-between px-6 py-4 border-b border-slate-100 no-underline transition-colors ${
+             currentCategory === category
+               ? 'bg-primary text-white hover:bg-[#2980b9]'
+               : 'text-inherit hover:bg-slate-100'
+           }`}>
+          <span class={`text-base ${
+            currentCategory === category ? 'text-white' : 'text-slate-700'
+          }`}>{category}</span>
+          <span class={`text-xs font-semibold px-2 py-1 rounded-full ${
+            currentCategory === category
+              ? 'bg-white/20 text-white'
+              : 'text-slate-500 bg-slate-200'
+          }`}>
             {posts.filter(post => post.frontmatter.categories?.includes(category)).length}
           </span>
         </a>

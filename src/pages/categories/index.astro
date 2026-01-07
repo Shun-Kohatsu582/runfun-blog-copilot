@@ -2,7 +2,6 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import { t } from "../../utils/i18n";
 import i18next from "i18next";
-import "../../styles/categories.scss";
 
 // Get all blog posts
 const posts = await Astro.glob('../blog/*.md');
@@ -34,18 +33,18 @@ const currentLanguage = i18next.language;
 ---
 
 <MainLayout title={`${t("categories.title")} - RunFun Blog`} description={`${t("categories.title")} - RunFun Blog`}>
-  <h1>{t("categories.title")}</h1>
+  <h1 class="text-3xl mb-4 text-secondary">{t("categories.title")}</h1>
 
-  <p class="intro">{t("categories.intro")}</p>
+  <p class="mb-8">{t("categories.intro")}</p>
 
   {sortedCategories.length === 0 ? (
     <p>{t("categories.noCategories")}</p>
   ) : (
-    <div class="categories-grid">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
       {sortedCategories.map((category) => (
-        <a href={`/category/${category.slug}`} class="category-card">
-          <h2>{category.name}</h2>
-          <p>{category.count} {category.count === 1 ? t("categories.post") : t("categories.posts")}</p>
+        <a href={`/category/${category.slug}`} class="bg-gray-50 rounded-lg p-6 no-underline text-inherit transition-all border border-gray-200 hover:-translate-y-1 hover:shadow-lg">
+          <h2 class="text-xl m-0 mb-2 text-primary">{category.name}</h2>
+          <p class="m-0 text-gray-600 text-sm">{category.count} {category.count === 1 ? t("categories.post") : t("categories.posts")}</p>
         </a>
       ))}
     </div>

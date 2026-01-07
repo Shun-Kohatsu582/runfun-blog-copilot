@@ -2,7 +2,6 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import Sidebar from "../../components/Sidebar.astro";
-import "../../styles/blog.scss";
 
 // Get all blog posts
 const posts = await Astro.glob('./*.md');
@@ -12,23 +11,23 @@ const sortedPosts = posts.sort(
 ---
 
 <MainLayout title="Blog | RunFun Blog" description="Read our latest articles about running and fun activities">
-  <div class="blog-container">
-    <div class="blog-layout">
+  <div class="max-w-container mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-8 py-8">
       <!-- Sidebar -->
-      <aside class="sidebar-wrapper">
+      <aside class="w-full md:w-80 flex-shrink-0">
         <Sidebar />
       </aside>
 
       <!-- Main Content -->
-      <main class="blog-main">
-        <h1 class="blog-title">Blog Posts</h1>
+      <main class="min-w-0 flex-grow">
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-8 tracking-tight">Blog Posts</h1>
 
         {sortedPosts.length === 0 ? (
-          <div class="no-posts">
-            <p>No blog posts available yet. Check back soon!</p>
+          <div class="text-center py-12 bg-white rounded-lg shadow-lg">
+            <p class="text-slate-500 text-lg m-0">No blog posts available yet. Check back soon!</p>
           </div>
         ) : (
-          <div class="posts-grid">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {sortedPosts.map((post) => (
               <BlogPostPreview
                 title={post.frontmatter.title}

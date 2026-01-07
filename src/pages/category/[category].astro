@@ -2,7 +2,6 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import Sidebar from "../../components/Sidebar.astro";
-import "../../styles/category.scss";
 
 export async function getStaticPaths() {
   const posts = await Astro.glob('../blog/*.md');
@@ -45,24 +44,24 @@ const description = `Blog posts about ${category} - RunFun Blog`;
 ---
 
 <MainLayout title={title} description={description}>
-  <div class="category-container">
-    <div class="category-layout">
+  <div class="max-w-container mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-8 py-8">
       <!-- Sidebar -->
-      <aside class="sidebar-wrapper">
+      <aside class="w-full md:w-80 flex-shrink-0">
         <Sidebar currentCategory={category} />
       </aside>
 
       <!-- Main Content -->
-      <main class="category-main">
-        <div class="category-header">
-          <h1>{category}</h1>
-          <a href="/categories" class="all-categories">View all categories</a>
+      <main class="min-w-0 flex-grow">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl md:text-4xl text-secondary m-0">{category}</h1>
+          <a href="/categories" class="text-primary no-underline font-medium hover:underline">View all categories</a>
         </div>
 
         {sortedPosts.length === 0 ? (
           <p>No posts found in this category. Check back soon!</p>
         ) : (
-          <div class="posts-grid">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {sortedPosts.map((post) => (
               <BlogPostPreview
                 title={post.frontmatter.title}

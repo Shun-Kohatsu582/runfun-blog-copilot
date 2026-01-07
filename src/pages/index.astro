@@ -2,48 +2,47 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import { t } from "../utils/i18n";
 import i18next from "i18next";
-import "../styles/home.scss";
 ---
 
 <MainLayout title={t("common.title")} isHomePage={true}>
-  <div class="fullscreen-container">
+  <div class="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-none">
     <!-- Logo Section -->
-    <section class="logo-section fullscreen-section">
-      <div class="container">
-        <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="logo-image" />
+    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative">
+      <div class="max-w-container mx-auto px-4 w-[300px] h-auto">
+        <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="max-w-full h-auto max-h-[200px]" />
       </div>
     </section>
 
     <!-- Service Section -->
-    <section class="service-section fullscreen-section">
-      <div class="container">
-        <h2>SERVICE</h2>
+    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative bg-service-blue text-white">
+      <div class="max-w-container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl mb-8">SERVICE</h2>
 
-        <div class="service-items">
-          <p>ホームページ制作・リニューアル</p>
-          <p>CMS構築（Wordpress・Movable Type）</p>
-          <p>LP作成</p>
-          <p>ホームページ運用保守</p>
-          <p>kintoneアプリ開発</p>
-          <p>etc...</p>
+        <div class="max-w-[600px] mx-auto">
+          <p class="mb-4 text-lg md:text-xl">ホームページ制作・リニューアル</p>
+          <p class="mb-4 text-lg md:text-xl">CMS構築（Wordpress・Movable Type）</p>
+          <p class="mb-4 text-lg md:text-xl">LP作成</p>
+          <p class="mb-4 text-lg md:text-xl">ホームページ運用保守</p>
+          <p class="mb-4 text-lg md:text-xl">kintoneアプリ開発</p>
+          <p class="mb-4 text-lg md:text-xl">etc...</p>
         </div>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="about-section fullscreen-section">
-      <div class="container">
-        <h2>ABOUT</h2>
+    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative py-16">
+      <div class="max-w-container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl mb-8">ABOUT</h2>
 
-        <div class="about-content">
+        <div class="max-w-[600px] mx-auto">
           <p>「RunFun」と書いて「るんふん」</p>
 
-          <div class="engineer-info">
-            <h3>WEB ENGINEER</h3>
-            <p class="engineer-name">小波津 駿</p>
-            <p class="engineer-name-en">KOHATSU SHUN</p>
+          <div class="mt-12 md:mt-16">
+            <h3 class="mb-6 text-xl md:text-2xl">WEB ENGINEER</h3>
+            <p class="text-2xl md:text-3xl mb-2">小波津 駿</p>
+            <p class="mb-8">KOHATSU SHUN</p>
 
-            <p class="engineer-location">沖縄県にてフリーのWEBエンジニアとして活動中</p>
+            <p class="mb-2">沖縄県にてフリーのWEBエンジニアとして活動中</p>
             <p>WEB制作全般承ります</p>
           </div>
         </div>
@@ -51,18 +50,18 @@ import "../styles/home.scss";
     </section>
 
     <!-- Blog Link Section -->
-    <section class="blog-link-section fullscreen-section">
-      <div class="container">
-        <h2>BLOG</h2>
-        <p>技術ブログやお役立ち情報を更新しています</p>
-        <a href="/blog" class="blog-button">ブログを見る</a>
+    <section class="h-screen snap-start flex flex-col justify-between items-center text-center relative bg-gradient-to-b from-slate-50 to-service-blue">
+      <div class="max-w-container mx-auto px-4 flex-1 flex flex-col justify-center items-center">
+        <h2 class="text-3xl md:text-4xl mb-4">BLOG</h2>
+        <p class="mb-8 md:mb-12">技術ブログやお役立ち情報を更新しています</p>
+        <a href="/blog" class="inline-block bg-service-blue text-white px-8 py-3 rounded-full no-underline font-bold transition-colors hover:bg-[#3a93e6]">ブログを見る</a>
       </div>
 
       <!-- Footer within last section -->
-      <footer class="home-footer">
-        <div class="container">
-          <p class="footer-copyright">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
-          <p class="footer-credit">Designed with passion by Runfun.</p>
+      <footer class="bg-gray-100 text-gray-500 py-8 w-full text-center">
+        <div class="max-w-container mx-auto px-4">
+          <p class="text-lg mb-2">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
+          <p class="text-sm">Designed with passion by Runfun.</p>
         </div>
       </footer>
     </section>
