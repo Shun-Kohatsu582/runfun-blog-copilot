@@ -5,16 +5,16 @@ import i18next from "i18next";
 ---
 
 <MainLayout title={t("common.title")} isHomePage={true}>
-  <div class="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-none">
+  <div class="fullscreen-container h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-none" id="top">
     <!-- Logo Section -->
-    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative">
+    <section id="home" class="h-screen snap-start flex flex-col justify-center items-center text-center relative">
       <div class="max-w-container mx-auto px-4 w-[300px] h-auto">
         <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="max-w-full h-auto max-h-[200px]" />
       </div>
     </section>
 
     <!-- Service Section -->
-    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative bg-service-blue text-white">
+    <section id="service" class="h-screen snap-start flex flex-col justify-center items-center text-center relative bg-service-blue text-white">
       <div class="max-w-container mx-auto px-4">
         <h2 class="text-3xl md:text-4xl mb-8">SERVICE</h2>
 
@@ -30,7 +30,7 @@ import i18next from "i18next";
     </section>
 
     <!-- About Section -->
-    <section class="h-screen snap-start flex flex-col justify-center items-center text-center relative py-16">
+    <section id="about" class="h-screen snap-start flex flex-col justify-center items-center text-center relative py-16">
       <div class="max-w-container mx-auto px-4">
         <h2 class="text-3xl md:text-4xl mb-8">ABOUT</h2>
 
@@ -50,7 +50,7 @@ import i18next from "i18next";
     </section>
 
     <!-- Blog Link Section -->
-    <section class="h-screen snap-start flex flex-col justify-between items-center text-center relative bg-gradient-to-b from-slate-50 to-service-blue">
+    <section id="blog" class="h-screen snap-start flex flex-col justify-between items-center text-center relative bg-gradient-to-b from-slate-50 to-service-blue">
       <div class="max-w-container mx-auto px-4 flex-1 flex flex-col justify-center items-center">
         <h2 class="text-3xl md:text-4xl mb-4">BLOG</h2>
         <p class="mb-8 md:mb-12">技術ブログやお役立ち情報を更新しています</p>

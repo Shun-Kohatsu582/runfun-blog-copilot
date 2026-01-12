@@ -76,23 +76,23 @@ const currentLanguage = i18next.language;
           <div class="p-6 pt-20">
             <ul class="flex flex-col gap-4 list-none p-0 m-0">
               <li>
-                <a href={localizePath("/")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                <a href="#home" class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
                   {t("navigation.home")}
                 </a>
               </li>
               <li>
-                <a href={localizePath("/blog")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
-                  {t("navigation.blog")}
+                <a href="#service" class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  SERVICE
                 </a>
               </li>
               <li>
-                <a href={localizePath("/categories")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
-                  {t("navigation.categories")}
-                </a>
-              </li>
-              <li>
-                <a href={localizePath("/about")} class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                <a href="#about" class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
                   {t("navigation.about")}
+                </a>
+              </li>
+              <li>
+                <a href="#blog" class="block py-3 px-4 text-lg font-medium text-slate-700 no-underline rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors">
+                  {t("navigation.blog")}
                 </a>
               </li>
             </ul>
@@ -162,11 +162,58 @@ const currentLanguage = i18next.language;
         closeMenu();
       });
 
-      // Close menu when clicking menu links
+      // Handle menu links - smooth scroll for anchor links, close menu
       const menuLinks = mobileMenu?.querySelectorAll('a');
       menuLinks?.forEach(link => {
-        link.addEventListener('click', () => {
-          closeMenu();
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          // Check if it's an anchor link (starts with #)
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+              // Close menu first
+              closeMenu();
+
+              // Small delay to allow menu to close, then scroll
+              setTimeout(() => {
+                const fullscreenContainer = document.querySelector('.fullscreen-container');
+                if (fullscreenContainer) {
+                  // Find the section element
+                  const section = targetElement.closest('section');
+                  if (section) {
+                    // Scroll to the section - use scrollIntoView with smooth behavior
+                    // This works with scroll-snap
+                    section.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                      inline: 'nearest'
+                    });
+                  } else {
+                    targetElement.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                      inline: 'nearest'
+                    });
+                  }
+                } else {
+                  // Fallback for normal scrolling
+                  targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                  });
+                }
+              }, 300); // Increased delay to ensure menu animation completes
+            } else {
+              closeMenu();
+            }
+          } else {
+            // External link - just close menu
+            closeMenu();
+          }
         });
       });
 
@@ -182,7 +229,7 @@ const currentLanguage = i18next.language;
         const header = document.querySelector('.home-header');
         const fullscreenContainer = document.querySelector('.fullscreen-container');
 
-        if (fullscreenContainer) {
+        if (fullscreenContainer && header) {
           // Header scroll effect
           fullscreenContainer.addEventListener('scroll', () => {
             if (fullscreenContainer.scrollTop > 50) {
@@ -210,11 +257,13 @@ const currentLanguage = i18next.language;
           let touchEndY = 0;
 
           fullscreenContainer.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
+            const touchEvent = e as TouchEvent;
+            touchStartY = touchEvent.changedTouches[0].screenY;
           });
 
           fullscreenContainer.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
+            const touchEvent = e as TouchEvent;
+            touchEndY = touchEvent.changedTouches[0].screenY;
             const touchDiff = touchStartY - touchEndY;
 
             // Only trigger if it's a significant swipe (more than 50px)
