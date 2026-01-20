@@ -21,28 +21,28 @@ const formattedDate = pubDate.toLocaleDateString(currentLocale === "ja" ? "ja-JP
 });
 ---
 
-<article class="bg-white rounded-lg shadow-xl overflow-hidden transition-shadow flex flex-col h-full hover:shadow-2xl group">
+<article class="card bg-white shadow-xl h-full flex flex-col hover:shadow-2xl transition-shadow">
   {heroImage && (
-    <div class="w-full h-48 md:h-64 overflow-hidden">
-      <div class="w-full h-full bg-cover bg-center bg-no-repeat" style={`background-image: url(${import.meta.env.BASE_URL + heroImage.replace(/^\//, '')})`}></div>
-    </div>
+    <figure class="h-48 md:h-64 overflow-hidden">
+      <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="w-full h-full object-cover" />
+    </figure>
   )}
-  <div class="p-5 md:p-6 flex flex-col justify-between flex-grow">
-    <div>
-      <h3 class="text-xl md:text-2xl font-semibold text-slate-800 mb-2 leading-tight transition-colors group-hover:text-blue-600">
-        <a href={url} class="text-inherit no-underline">{title}</a>
-      </h3>
-      <p class="text-slate-600 text-sm leading-relaxed mb-4">{description}</p>
+  <div class="card-body flex-grow flex flex-col">
+    <h2 class="card-title text-xl md:text-2xl text-slate-900">
+      <a href={url} class="text-inherit no-underline hover:text-primary">{title}</a>
+    </h2>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">{description}</p>
+    <div class="card-actions justify-end">
+      <a href={url} class="btn btn-primary btn-sm">
+        {t("common.readMore")}
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            clip-rule="evenodd"
+            d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+            fill-rule="evenodd">
+          </path>
+        </svg>
+      </a>
     </div>
-    <a href={url} class="inline-flex items-center font-medium text-blue-600 no-underline transition-colors self-start mt-auto hover:text-blue-800 group/readmore">
-      {t("common.readMore")}
-      <svg class="w-4 h-4 ml-1 transform translate-x-0 transition-transform group-hover/readmore:translate-x-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <path
-          clip-rule="evenodd"
-          d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-          fill-rule="evenodd">
-        </path>
-      </svg>
-    </a>
   </div>
 </article>

@@ -1,5 +1,7 @@
 ---
 import MainLayout from "./MainLayout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { localizePath } from "../utils/i18n";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -49,39 +51,76 @@ function toISOSafe(date: Date | string | undefined) {
 const pubDateISO = toISOSafe(pubDate);
 const updatedDateISO = toISOSafe(updatedDate);
 ---
----
 
-<MainLayout title={title} description={description}>
-  <article class="mb-12">
-    {heroImage && <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="w-full h-auto rounded-lg mb-6 object-cover max-h-[400px]" />}
+<MainLayout title={`${title} | RunFun Blog`} description={description}>
+  <div class="max-w-container mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-8 py-8">
+      <!-- Sidebar -->
+      <aside class="w-full md:w-80 flex-shrink-0">
+        <Sidebar />
+      </aside>
 
-    <h1 class="text-4xl mb-2">{title}</h1>
+      <!-- Main Content -->
+      <main class="min-w-0 flex-grow">
+        <article class="card bg-white shadow-xl mb-12">
+          <div class="card-body">
+            {heroImage && (
+              <figure class="mb-6">
+                <img src={import.meta.env.BASE_URL + heroImage.replace(/^\//, '')} alt={title} class="w-full h-auto rounded-lg object-cover max-h-[400px]" />
+              </figure>
+            )}
 
-    <div class="text-gray-600 text-sm mb-8">
-      <time datetime={pubDateISO}>Published on {formattedPubDate}</time>
-      {updatedDate && (
-        <div class="mt-2 italic">
-          <time datetime={updatedDateISO}>
-            Updated on {formattedUpdatedDate}
-          </time>
-        </div>
-      )}
-      {categories && categories.length > 0 && (
-        <div class="mt-3 flex items-center gap-2">
-          <span>Categories: </span>
-          <ul class="flex list-none p-0 m-0 gap-2 flex-wrap">
-            {categories.map((category) => (
-              <li class="m-0">
-                <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="inline-block bg-primary text-white px-2 py-1 rounded text-xs no-underline transition-colors hover:bg-secondary">{category}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+            <!-- Article Header: Title, Categories, Date -->
+            <div class="mb-8 pb-6 border-b border-slate-200">
+              <h1 class="card-title !text-4xl md:!text-5xl lg:!text-6xl !font-extrabold !text-slate-900 !mb-4 !leading-tight !mt-0 !m-0">{title}</h1>
+
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <!-- Categories -->
+                {categories && categories.length > 0 && (
+                  <div class="flex items-center gap-2 flex-wrap">
+                    {categories.map((category) => (
+                      <a href={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="badge badge-primary badge-lg">{category}</a>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Publication Date -->
+                <div class="flex items-center gap-2 text-slate-600 text-sm">
+                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <time datetime={pubDateISO} class="font-medium">Published on {formattedPubDate}</time>
+                  {updatedDate && (
+                    <>
+                      <span class="mx-2">•</span>
+                      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                      </svg>
+                      <time datetime={updatedDateISO} class="italic">Updated on {formattedUpdatedDate}</time>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none post-content text-slate-800 [&_h2]:text-3xl [&_h2]:font-bold [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:text-slate-900 [&_h3]:text-2xl [&_h3]:font-semibold [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:text-slate-900 [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-slate-700 [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:shadow-md [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6 [&_blockquote]:text-slate-600 [&_pre]:bg-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-6 [&_pre]:shadow [&_code]:bg-slate-100 [&_code]:px-2 [&_code]:py-1 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_code]:text-slate-800 [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:mb-2 [&_li]:text-slate-700 [&_a]:text-primary [&_a]:hover:text-primary-focus">
+              <slot />
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Back to Blog Top Button -->
+            <div class="card-actions justify-start">
+              <a href={localizePath("/blog")} class="btn btn-primary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                ブログTOPに戻る
+              </a>
+            </div>
+          </div>
+        </article>
+      </main>
     </div>
-
-    <div class="post-content leading-relaxed [&_h2]:text-3xl [&_h2]:my-8 [&_h2]:mt-4 [&_h3]:text-2xl [&_h3]:my-6 [&_h3]:mt-4 [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6 [&_blockquote]:text-gray-600 [&_pre]:bg-gray-50 [&_pre]:p-4 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:my-6 [&_code]:bg-gray-50 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm">
-      <slot />
-    </div>
-  </article>
+  </div>
 </MainLayout>

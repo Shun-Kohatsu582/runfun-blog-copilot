@@ -8,6 +8,10 @@
   -webkit-overflow-scrolling: touch;
   /* Prevent scroll bouncing on iOS */
   overscroll-behavior: none;
+  /* Performance optimizations */
+  will-change: scroll-position;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Fallback for browsers that don't support scroll-snap */
@@ -28,6 +32,8 @@
   align-items: center;
   text-align: center;
   position: relative;
+  /* Performance optimization */
+  will-change: transform;
 }
 
 .logo-section {
@@ -157,29 +163,29 @@
   .blog-link-section h2 {
     font-size: 1.5rem;
   }
-  
+
   .engineer-name {
     font-size: 1.2rem;
   }
-  
+
   .engineer-info h3 {
     font-size: 1.1rem;
   }
-  
+
   .service-items p {
     font-size: 1rem;
   }
-  
+
   .about-content,
   .service-items {
     padding: 0 1rem;
   }
-  
+
   /* Ensure content fits on smaller screens */
   .engineer-info {
     margin-top: 2rem;
   }
-  
+
   .blog-link-section p {
     margin-bottom: 1.5rem;
   }
@@ -190,27 +196,27 @@
   .logo-image {
     max-height: 150px;
   }
-  
+
   .service-section h2,
   .about-section h2,
   .blog-link-section h2 {
     font-size: 1.3rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .service-items p {
     font-size: 0.9rem;
     margin-bottom: 0.8rem;
   }
-  
+
   .engineer-name {
     font-size: 1.1rem;
   }
-  
+
   .home-footer {
     padding: 1.5rem 0;
   }
-  
+
   .home-footer .footer-copyright,
   .home-footer .footer-credit {
     font-size: 0.8rem;
@@ -221,7 +227,7 @@
 @media (hover: none) and (pointer: coarse) {
   .fullscreen-container {
     -webkit-overflow-scrolling: touch;
-    /* Better snap behavior on touch devices */
-    scroll-snap-stop: always;
+    /* Use normal snap behavior for smoother scrolling */
+    scroll-snap-stop: normal;
   }
 }
