@@ -28,6 +28,12 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Create .nojekyll to disable Jekyll
+        run: |
+          # Ensure the dist directory exists and create the .nojekyll marker
+          mkdir -p ./dist
+          touch ./dist/.nojekyll
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
