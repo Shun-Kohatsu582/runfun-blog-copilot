@@ -158,14 +158,40 @@ Cloudflare Pagesでカスタムドメインを設定するには：
    - Cloudflareでホストしているドメインを使用する場合は、自動で設定されます
    - 外部のDNSプロバイダーを使用している場合は、必要なDNSレコードを手動で設定する必要があります
 
+### 手動デプロイ（Wrangler CLI）
+
+GitHub連携ではなく、Wrangler CLIを使って手動でデプロイする場合：
+
+1. **認証の設定**:
+   ```bash
+   # ブラウザベースの認証（推奨）
+   npx wrangler login
+   
+   # または、APIトークンを使用する場合
+   # CloudflareダッシュボードでAPIトークンを作成し、以下の権限を付与：
+   # - Account: Cloudflare Pages:Edit
+   # その後、環境変数に設定：
+   export CLOUDFLARE_API_TOKEN="your-api-token"
+   ```
+
+2. **デプロイの実行**:
+   ```bash
+   npm run deploy
+   # または
+   pnpm run deploy
+   ```
+
 ### トラブルシューティング
 
 デプロイに問題がある場合は、以下を確認してください：
 
-1. **ビルドエラー**: Cloudflare Pagesの「Deployments」タブでデプロイのビルドログを確認します
-2. **パス設定**: 404エラーが発生する場合は、`astro.config.mjs`の`base`パスが正しく設定されているか確認します（現在は全ての環境で `/` に設定されています）
-3. **キャッシュの問題**: 変更が反映されない場合は、Cloudflareのキャッシュをパージするか、ハード更新（Ctrl+F5）を試してください
-4. **依存関係**: `package.json`に必要な依存関係がすべて含まれているか確認します
+1. **認証エラー**: 
+   - APIトークンを使用している場合、`CLOUDFLARE_API_TOKEN`環境変数を削除して`npx wrangler login`を実行してください
+   - APIトークンに「Cloudflare Pages:Edit」権限があることを確認してください
+2. **ビルドエラー**: Cloudflare Pagesの「Deployments」タブでデプロイのビルドログを確認します
+3. **パス設定**: 404エラーが発生する場合は、`astro.config.mjs`の`base`パスが正しく設定されているか確認します（現在は全ての環境で `/` に設定されています）
+4. **キャッシュの問題**: 変更が反映されない場合は、Cloudflareのキャッシュをパージするか、ハード更新（Ctrl+F5）を試してください
+5. **依存関係**: `package.json`に必要な依存関係がすべて含まれているか確認します
 
 詳細は[Cloudflare Pagesのドキュメント](https://developers.cloudflare.com/pages/)を参照してください。
 
