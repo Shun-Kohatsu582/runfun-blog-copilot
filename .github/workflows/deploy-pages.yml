@@ -28,11 +28,13 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Create .nojekyll to disable Jekyll
+      - name: Create .nojekyll to disable Jekyll processing
         run: |
-          # Ensure the dist directory exists and create the .nojekyll marker
           mkdir -p ./dist
           touch ./dist/.nojekyll
+
+      - name: Show wrangler version
+        run: pnpm wrangler --version
 
       - name: Deploy to Cloudflare Pages
         env:
