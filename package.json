@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "pnpm run build && wrangler pages deploy dist"
+    "deploy": "pnpm run build && wrangler pages deploy dist --project-name runfun-blog-copilot --account-id 708b298b64aae8f4cddab434c9767818"
   },
   "keywords": [],
   "author": "",
