@@ -2,6 +2,7 @@
   "name": "runfun-blog-copilot",
   "version": "1.0.0",
   "description": "blog with copilot",
+  "packageManager": "pnpm@8",
   "main": "index.js",
   "scripts": {
     "dev": "astro dev",
