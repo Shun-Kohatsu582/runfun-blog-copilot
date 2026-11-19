@@ -5,10 +5,10 @@ import i18next from "i18next";
 ---
 
 <MainLayout title={t("common.title")} isHomePage={true}>
-  <div class="fullscreen-container h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-none" id="top">
+  <div class="fullscreen-container h-screen overflow-y-auto snap-y snap-mandatory overscroll-none" id="top">
     <!-- Logo Section -->
     <section id="home" class="h-screen snap-start flex flex-col justify-center items-center text-center relative">
-      <div class="max-w-container mx-auto px-4 w-[300px] h-auto">
+      <div class="max-w-container mx-auto px-4 w-[300px] h-auto" data-animate>
         <img src={import.meta.env.BASE_URL + 'images/runfun-logo.svg'} alt="RunFun Logo" class="max-w-full h-auto max-h-[200px]" />
       </div>
     </section>
@@ -16,15 +16,15 @@ import i18next from "i18next";
     <!-- Service Section -->
     <section id="service" class="h-screen snap-start flex flex-col justify-center items-center text-center relative bg-service-blue text-white">
       <div class="max-w-container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl mb-8">SERVICE</h2>
+        <h2 class="text-3xl md:text-4xl mb-8" data-animate>SERVICE</h2>
 
         <div class="max-w-[600px] mx-auto">
-          <p class="mb-4 text-lg md:text-xl">ホームページ制作・リニューアル</p>
-          <p class="mb-4 text-lg md:text-xl">CMS構築（Wordpress・Movable Type）</p>
-          <p class="mb-4 text-lg md:text-xl">LP作成</p>
-          <p class="mb-4 text-lg md:text-xl">ホームページ運用保守</p>
-          <p class="mb-4 text-lg md:text-xl">kintoneアプリ開発</p>
-          <p class="mb-4 text-lg md:text-xl">etc...</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>ホームページ制作・リニューアル</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>CMS構築（Wordpress・Movable Type）</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>LP作成</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>ホームページ運用保守</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>kintoneアプリ開発</p>
+          <p class="mb-4 text-lg md:text-xl" data-animate>etc...</p>
         </div>
       </div>
     </section>
@@ -32,18 +32,18 @@ import i18next from "i18next";
     <!-- About Section -->
     <section id="about" class="h-screen snap-start flex flex-col justify-center items-center text-center relative py-16">
       <div class="max-w-container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl mb-8">ABOUT</h2>
+        <h2 class="text-3xl md:text-4xl mb-8" data-animate>ABOUT</h2>
 
         <div class="max-w-[600px] mx-auto">
-          <p>「RunFun」と書いて「るんふん」</p>
+          <p data-animate>「RunFun」と書いて「るんふん」</p>
 
           <div class="mt-12 md:mt-16">
-            <h3 class="mb-6 text-xl md:text-2xl">WEB ENGINEER</h3>
-            <p class="text-2xl md:text-3xl mb-2">小波津 駿</p>
-            <p class="mb-8">KOHATSU SHUN</p>
+            <h3 class="mb-6 text-xl md:text-2xl" data-animate>WEB ENGINEER</h3>
+            <p class="text-2xl md:text-3xl mb-2" data-animate>小波津 駿</p>
+            <p class="mb-8" data-animate>KOHATSU SHUN</p>
 
-            <p class="mb-2">沖縄県にてフリーのWEBエンジニアとして活動中</p>
-            <p>WEB制作全般承ります</p>
+            <p class="mb-2" data-animate>沖縄県にてフリーのWEBエンジニアとして活動中</p>
+            <p data-animate>WEB制作全般承ります</p>
           </div>
         </div>
       </div>
@@ -52,13 +52,13 @@ import i18next from "i18next";
     <!-- Blog Link Section -->
     <section id="blog" class="h-screen snap-start flex flex-col justify-between items-center text-center relative bg-gradient-to-b from-slate-50 to-service-blue">
       <div class="max-w-container mx-auto px-4 flex-1 flex flex-col justify-center items-center">
-        <h2 class="text-3xl md:text-4xl mb-4">BLOG</h2>
-        <p class="mb-8 md:mb-12">技術ブログやお役立ち情報を更新しています</p>
-        <span class="inline-block bg-slate-300 text-slate-600 px-8 py-3 rounded-full font-bold cursor-not-allowed select-none" aria-disabled="true" title="現在開発中">ブログ（現在開発中）</span>
+        <h2 class="text-3xl md:text-4xl mb-4" data-animate>BLOG</h2>
+        <p class="mb-8 md:mb-12" data-animate>技術ブログやお役立ち情報を更新しています</p>
+        <span class="inline-block bg-slate-300 text-slate-600 px-8 py-3 rounded-full font-bold cursor-not-allowed select-none" aria-disabled="true" title="現在開発中" data-animate>ブログ（現在開発中）</span>
       </div>
 
       <!-- Footer within last section -->
-      <footer class="bg-gray-100 text-gray-500 py-8 w-full text-center">
+      <footer class="bg-gray-100 text-gray-500 py-8 w-full text-center" data-animate>
         <div class="max-w-container mx-auto px-4">
           <p class="text-lg mb-2">&copy; {new Date().getFullYear()} RunFun Blog. {t("common.copyright")}</p>
           <p class="text-sm">Designed with passion by Runfun.</p>
