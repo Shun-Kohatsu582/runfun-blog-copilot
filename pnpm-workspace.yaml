@@ -1,0 +1,13 @@
+minimumReleaseAgeExclude:
+  - '@astrojs/cloudflare@14.4.9'
+  - '@astrojs/runtime@0.1.2'
+  - '@cloudflare/kv-asset-handler@0.5.1'
+  - '@cloudflare/workers-utils@0.55.0'
+  - astro@7.4.13
+  - i18next@27.2.1
+  - miniflare@5.20261118.0-beta
+  - wrangler@4.165.0
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  workerd: true

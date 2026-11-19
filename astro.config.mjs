@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 // Detect if we're running on Cloudflare Pages
 const isCloudflarePages = process.env.CF_PAGES === 'true';
@@ -18,5 +18,7 @@ export default defineConfig({
   build: {
     assets: '_assets'
   },
-  integrations: [tailwind()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

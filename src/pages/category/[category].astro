@@ -4,7 +4,7 @@ import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import Sidebar from "../../components/Sidebar.astro";
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../blog/*.md');
+  const posts = Object.values(import.meta.glob('../blog/*.md', { eager: true }));
 
   // Extract all categories from all posts
   const allCategories = new Set();
