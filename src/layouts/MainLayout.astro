@@ -117,7 +117,7 @@ const currentLanguage = i18next.language;
         <div class="mobile-menu-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[99] opacity-0 invisible" id="menuOverlay"></div>
 
         <!-- Mobile Menu -->
-        <nav class="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[100] transform translate-x-full overflow-y-auto" id="mobileMenu">
+        <nav class="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[100] invisible overflow-y-auto" id="mobileMenu">
           <div class="p-6 pt-20">
             <ul class="flex flex-col gap-4 list-none p-0 m-0">
               <li>
@@ -184,11 +184,17 @@ const currentLanguage = i18next.language;
       let isMenuOpen = false;
 
       // --- Mobile menu: GSAP takes over transform/opacity/visibility ---
-      // The utility classes only provide the pre-JS initial state; the inline
-      // styles set here replace them so Tailwind transitions no longer compete.
+      // The panel's position is controlled by GSAP alone. Its markup carries
+      // no Tailwind translate/transform utilities on purpose: Tailwind v4
+      // implements translate-x-full with the CSS `translate` property, and
+      // GSAP folds that offset into its transform cache as a phantom pixel
+      // `x`, so animating xPercent back to 0 still left the panel exactly one
+      // width off-screen. The `invisible` class only hides the panel until
+      // this script runs; the set and the class removal happen in the same
+      // synchronous block, before any paint can show the untransformed panel.
       if (mobileMenu && menuOverlay) {
-        gsap.set(mobileMenu, { xPercent: 100 });
-        mobileMenu.classList.remove('translate-x-full');
+        gsap.set(mobileMenu, { xPercent: 100, visibility: 'visible' });
+        mobileMenu.classList.remove('invisible');
         gsap.set(menuOverlay, { autoAlpha: 0 });
         menuOverlay.classList.remove('opacity-0', 'invisible');
         if (menuIconClose) {
@@ -336,7 +342,7 @@ const currentLanguage = i18next.language;
         if (heroItems.length) {
           gsap.fromTo(heroItems,
             { autoAlpha: 0, scale: 0.92 },
-            { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.15 });
+            { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'power3.out', delay: 0.15 });
         }
 
         gsap.utils.toArray('main section').forEach((section) => {
@@ -350,13 +356,16 @@ const currentLanguage = i18next.language;
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.7,
+              duration: 0.6,
               ease: 'power3.out',
               stagger: 0.08,
               scrollTrigger: {
                 trigger: section,
                 scroller: container,
-                start: 'top 70%',
+                // Sections land via scroll-snap, so start a little earlier
+                // than 70%: the reveal is well under way once a section has
+                // snapped into place instead of trailing behind it.
+                start: 'top 75%',
                 toggleActions: 'play none none reverse',
               },
             });
