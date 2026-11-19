@@ -4,7 +4,7 @@ import { t } from "../../utils/i18n";
 import i18next from "i18next";
 
 // Get all blog posts
-const posts = await Astro.glob('../blog/*.md');
+const posts = Object.values(import.meta.glob('../blog/*.md', { eager: true }));
 
 // Extract all categories and count posts in each
 const categories = posts.reduce((acc, post) => {

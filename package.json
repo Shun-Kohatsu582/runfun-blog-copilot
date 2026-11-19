@@ -14,16 +14,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "astro": "^5.9.0",
+    "astro": "^7.4.13",
     "astro-i18next": "^1.0.0-beta.21",
-    "i18next": "^25.2.1"
+    "i18next": "^27.2.1"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/tailwind": "^6.0.2",
-    "daisyui": "^5.5.14",
-    "sass": "^1.81.0",
-    "tailwindcss": "^3.4.19",
-    "wrangler": "^4.57.0"
+    "@astrojs/cloudflare": "^14.4.9",
+    "@tailwindcss/vite": "^4.3.5",
+    "daisyui": "^5.8.1",
+    "sass": "^1.108.2",
+    "tailwindcss": "^4.3.5",
+    "wrangler": "^4.165.0"
   }
 }

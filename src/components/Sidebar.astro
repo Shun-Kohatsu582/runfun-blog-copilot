@@ -1,6 +1,6 @@
 ---
 // Extract unique categories from all blog posts
-const posts = await Astro.glob('../pages/blog/*.md');
+const posts = Object.values(import.meta.glob('../pages/blog/*.md', { eager: true }));
 const allCategories = posts.flatMap(post => post.frontmatter.categories || []);
 const uniqueCategories = [...new Set(allCategories)].sort();
 
