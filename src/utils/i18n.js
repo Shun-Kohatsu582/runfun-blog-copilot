@@ -27,7 +27,7 @@ i18next.init({
 export function t(key) {
   const parts = key.split('.');
   const namespace = parts[0];
-  const translationKey = parts[1];
+  const translationKey = parts.slice(1).join('.');
   
   return i18next.t(translationKey, { ns: namespace });
 }

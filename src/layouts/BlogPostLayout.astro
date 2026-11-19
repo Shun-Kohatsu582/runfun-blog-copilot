@@ -13,7 +13,10 @@ interface Props {
   categories?: string[];
 }
 
-const { title, description, pubDate, updatedDate, heroImage, categories } = Astro.props;
+// Markdown layouts receive the page's frontmatter nested under
+// Astro.props.frontmatter (not as top-level props), so read from there first.
+const props = Astro.props as Props & { frontmatter?: Props };
+const { title, description, pubDate, updatedDate, heroImage, categories } = props.frontmatter ?? props;
 
 // Format date or use a fallback
 function formatDate(date: Date | string | undefined) {
